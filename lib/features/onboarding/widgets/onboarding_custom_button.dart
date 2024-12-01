@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planty/features/auth/presentation/login_view.dart';
+import 'package:planty/features/auth/presentation/auth_view.dart';
 
 class OnboardingCustomButton extends StatelessWidget {
   const OnboardingCustomButton({
@@ -21,7 +21,7 @@ class OnboardingCustomButton extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const LoginView();
+                return const AuthView();
               },
             ),
           );
