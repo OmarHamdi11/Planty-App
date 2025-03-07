@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planty/features/auth/presentation/auth_view.dart';
+import 'package:planty/features/auth/presentation/views/auth_view.dart';
 
 class OnboardingCustomButton extends StatelessWidget {
   const OnboardingCustomButton({

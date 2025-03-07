@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:planty/features/auth/presentation/sign_in_body.dart';
-import 'package:planty/features/auth/presentation/sign_up_body.dart';
+import 'package:planty/features/auth/presentation/views/sign_in_body.dart';
+import 'package:planty/features/auth/presentation/views/sign_up_body.dart';
 
 class AuthView extends StatefulWidget {
   const AuthView({super.key});

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:planty/features/auth/presentation/widgets/custom_auth_button.dart';
-import 'package:planty/features/auth/presentation/widgets/custom_auth_text_field.dart';
-import 'package:planty/features/auth/presentation/widgets/page_view_header.dart';
+import 'package:planty/features/auth/presentation/views/widgets/custom_auth_button.dart';
+import 'package:planty/features/auth/presentation/views/widgets/custom_auth_text_field.dart';
+import 'package:planty/features/auth/presentation/views/widgets/custom_reset_button.dart';
+import 'package:planty/features/auth/presentation/views/widgets/page_view_header.dart';
 
-class SignUpBody extends StatelessWidget {
-  const SignUpBody({
+class SignInBody extends StatelessWidget {
+  const SignInBody({
     super.key,
     required PageController pageController,
   }) : _pageController = pageController;
@@ -14,7 +15,6 @@ class SignUpBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? email;
-    String? userName;
     String? password;
     GlobalKey<FormState> formKey = GlobalKey();
 
@@ -27,18 +27,9 @@ class SignUpBody extends StatelessWidget {
           children: [
             PageViewHeader(
               pageController: _pageController,
-              currentPage: 1,
+              currentPage: 0,
             ),
             const SizedBox(height: 32),
-            CustomAuthTextField(
-              icon: Icons.account_circle,
-              obscureText: false,
-              hintText: 'User Name',
-              onChanged: (p0) {
-                userName = p0;
-              },
-            ),
-            const SizedBox(height: 16),
             CustomAuthTextField(
               icon: Icons.email,
               hintText: 'Email address',
@@ -58,8 +49,10 @@ class SignUpBody extends StatelessWidget {
             const SizedBox(height: 32),
             CustomAuthButton(
               formKey: formKey,
-              text: "SignUp",
+              text: "SignIn",
             ),
+            const SizedBox(height: 8),
+            const CustomResetButton(),
           ],
         ),
       ),
