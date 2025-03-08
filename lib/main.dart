@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planty/features/auth/presentation/views/signin.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
 
 void main() {
@@ -10,9 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: SignInPage(),
     );
   }
 }

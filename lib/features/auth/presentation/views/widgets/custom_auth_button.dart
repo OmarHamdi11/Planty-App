@@ -1,39 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/utils/fonts.dart';
 
 class CustomAuthButton extends StatelessWidget {
   const CustomAuthButton({
     super.key,
-    required this.formKey,
-    required this.text,
+    required this.title,
+    required this.onPressed,
   });
 
-  final String text;
-  final GlobalKey<FormState> formKey;
+  final String title;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xff49640F)), // Green border
-        borderRadius: BorderRadius.circular(30.0), // Rounded border
-      ),
-      child: TextButton(
-        onPressed: () {
-          formKey.currentState!.validate();
-        },
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0), // Rounded border
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
+        onPressed: onPressed,
         child: Text(
-          text,
+          title,
           style: const TextStyle(
-            fontFamily: 'Montserrat',
-            color: Color(0xff49640F),
+            color: Colors.white,
             fontSize: 24,
+            fontFamily: AppFonts.avenir,
             fontWeight: FontWeight.bold,
           ),
         ),

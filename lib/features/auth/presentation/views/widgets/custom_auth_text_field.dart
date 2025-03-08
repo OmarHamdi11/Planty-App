@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/utils/fonts.dart';
 
 class CustomAuthTextField extends StatelessWidget {
   const CustomAuthTextField({
@@ -17,6 +19,7 @@ class CustomAuthTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: AppColors.primaryColor,
       obscureText: obscureText!,
       validator: (value) {
         if (value!.isEmpty) {
@@ -28,10 +31,9 @@ class CustomAuthTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(
-          fontFamily: 'Montserrat',
-          fontSize: 20,
+          fontFamily: AppFonts.avenir,
+          fontSize: 24,
           color: Colors.grey,
-          fontWeight: FontWeight.bold,
         ),
         filled: true,
         fillColor: Colors.white,
@@ -39,19 +41,31 @@ class CustomAuthTextField extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Icon(
             icon,
-            color: const Color(0xff49640F),
+            color: AppColors.primaryColor, // Icon color
             size: 32,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xff49640F), // Border color
+            color: AppColors.primaryColor, // Border color
           ),
           borderRadius: BorderRadius.circular(12.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xff49640F), // Focus border color
+            color: AppColors.primaryColor, // Focus border color
+          ),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Colors.red, // Focus border color
+          ),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Colors.red, // Focus border color
           ),
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -60,53 +74,3 @@ class CustomAuthTextField extends StatelessWidget {
     );
   }
 }
-
-
-
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         backgroundColor: Colors.lightYellow, // Optional background color
-//         body: Center(
-//           child: Padding(
-//             padding: const EdgeInsets.all(16.0),
-//             child: TextField(
-//               decoration: InputDecoration(
-//                 hintText: 'Email address',
-//                 hintStyle: TextStyle(
-//                   color: Colors.grey,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//                 filled: true,
-//                 fillColor: Colors.white,
-//                 prefixIcon: Container(
-//                   padding: EdgeInsets.all(12.0),
-//                   child: Icon(
-//                     Icons.email,
-//                     color: Colors.green, // Icon color
-//                   ),
-//                 ),
-//                 enabledBorder: OutlineInputBorder(
-//                   borderSide: BorderSide(
-//                     color: Colors.green, // Border color
-//                   ),
-//                   borderRadius: BorderRadius.circular(12.0),
-//                 ),
-//                 focusedBorder: OutlineInputBorder(
-//                   borderSide: BorderSide(
-//                     color: Colors.green, // Focus border color
-//                   ),
-//                   borderRadius: BorderRadius.circular(12.0),
-//                 ),
-//                 contentPadding: EdgeInsets.symmetric(vertical: 16.0),
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
