@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:planty/features/auth/presentation/views/signin.dart';
+import 'package:planty/features/auth/presentation/views/Signup_view.dart';
+import 'package:planty/features/auth/presentation/views/signin_view.dart';
+import 'package:planty/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
 
 void main() {
@@ -11,9 +13,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignInPage(),
+      home: OnboardingView(),
     );
   }
 }

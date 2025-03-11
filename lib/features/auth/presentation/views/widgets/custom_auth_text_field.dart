@@ -8,25 +8,25 @@ class CustomAuthTextField extends StatelessWidget {
     required this.icon,
     required this.hintText,
     required this.onChanged,
+    required this.validator,
+    //required this.controller,
     this.obscureText = false,
   });
 
   final IconData icon;
   final String hintText;
   final void Function(String)? onChanged;
+  final String? Function(String?)? validator;
   final bool? obscureText;
+  //final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      //controller: controller,
       cursorColor: AppColors.primaryColor,
       obscureText: obscureText!,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Required Field';
-        }
-        return null;
-      },
+      validator: validator,
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
@@ -69,7 +69,7 @@ class CustomAuthTextField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(12.0),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
       ),
     );
   }
