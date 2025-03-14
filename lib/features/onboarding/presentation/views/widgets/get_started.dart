@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/utils/fonts.dart';
 
 class GetStarted extends StatelessWidget {
   const GetStarted({
@@ -7,16 +9,13 @@ class GetStarted extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 15.0),
-      child: Text(
-        'Get Started',
-        style: TextStyle(
-          color: Color(0xffF5F5DC),
-          fontFamily: 'Montserrat',
-          fontSize: 38,
-          fontWeight: FontWeight.bold,
-        ),
+    return const Text(
+      'Get Started',
+      style: TextStyle(
+        color: AppColors.secondaryColor,
+        fontFamily: AppFonts.avenir,
+        fontSize: 40,
+        fontWeight: FontWeight.w900,
       ),
     );
   }
