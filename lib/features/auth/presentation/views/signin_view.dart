@@ -9,6 +9,7 @@ import 'package:planty/features/auth/presentation/views/widgets/custom_auth_text
 import 'package:planty/features/auth/presentation/views/widgets/custom_change_auth_way_button.dart';
 import 'package:planty/features/auth/presentation/views/widgets/custom_forgot_button.dart';
 import 'package:planty/features/auth/presentation/views/widgets/custom_page_header.dart';
+import 'package:planty/features/home/presentation/views/navigation_view.dart';
 
 class SignInView extends StatelessWidget {
   SignInView({super.key}); // Removed const because formKey is mutable
@@ -97,6 +98,14 @@ class SignInView extends StatelessWidget {
                           if (formKey.currentState!.validate()) {
                             // Form is valid, proceed with login
                             print("Email: $email, Password: $password");
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const NavigationView();
+                                },
+                              ),
+                            );
                           }
                         },
                       ),
