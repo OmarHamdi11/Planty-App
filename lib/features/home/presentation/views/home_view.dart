@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/features/diagnose/presentation/views/diagnose_view.dart';
 import 'package:planty/features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:planty/features/home/presentation/views/widgets/custom_home_button.dart';
 import 'package:planty/features/identify/presentation/views/identify_view.dart';
@@ -28,7 +29,8 @@ class HomeView extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const IdentifyView()),
+                      builder: (context) => const IdentifyView(),
+                    ),
                   );
                 },
               ),
@@ -38,7 +40,14 @@ class HomeView extends StatelessWidget {
                 title: "Diagnose",
                 subTitle: "plant",
                 imagePath: "assets/images/Diagnose.png",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DiagnoseView(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 30),
               CustomHomeButton(
