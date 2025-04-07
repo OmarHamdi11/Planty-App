@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/fonts.dart';
+import 'package:planty/features/community/presentation/views/community_view.dart';
+import 'package:planty/features/home/presentation/views/navigation_view.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
 
 void main() {

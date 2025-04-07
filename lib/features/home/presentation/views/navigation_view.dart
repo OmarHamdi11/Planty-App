@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/features/community/presentation/views/community_view.dart';
 import 'package:planty/features/e-commerce/presentation/views/commerce_view.dart';
 import 'package:planty/features/home/presentation/views/home_view.dart';
 
@@ -12,9 +13,10 @@ class NavigationView extends StatefulWidget {
 
 class _NavigationViewState extends State<NavigationView> {
   int myCurrentIndex = 0;
-  List pages = const [
-    HomeView(),
-    CommerceView(),
+  List pages = [
+    const HomeView(),
+    const CommerceView(),
+    CommunityView(),
   ];
 
   @override
@@ -44,13 +46,21 @@ class _NavigationViewState extends State<NavigationView> {
           },
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined), label: "Home"),
+              icon: Icon(Icons.home_outlined),
+              label: "Home",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.group), label: "Community"),
+              icon: Icon(Icons.group),
+              label: "Community",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.question_answer_outlined), label: "Expert"),
+              icon: Icon(Icons.question_answer_outlined),
+              label: "Expert",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline_outlined), label: "Profile"),
+              icon: Icon(Icons.person_outline_outlined),
+              label: "Profile",
+            ),
           ],
         ),
       ]),
