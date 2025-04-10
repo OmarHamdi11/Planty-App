@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/fonts.dart';
+import 'package:planty/features/comments/presentation/views/comments_view.dart';
 import 'package:planty/features/community/presentation/views/community_view.dart';
 import 'package:planty/features/home/presentation/views/navigation_view.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: AppFonts.poppins,
       ),
-      home: const SplashScreen(),
+      home: const NavigationView(),
     );
   }
 }

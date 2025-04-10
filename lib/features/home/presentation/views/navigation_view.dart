@@ -15,8 +15,8 @@ class _NavigationViewState extends State<NavigationView> {
   int myCurrentIndex = 0;
   List pages = [
     const HomeView(),
-    const CommerceView(),
     CommunityView(),
+    const CommerceView(),
   ];
 
   @override

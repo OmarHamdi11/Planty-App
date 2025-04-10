@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planty/features/comments/presentation/views/comments_view.dart';
 
 class CustomCommentNavigation extends StatelessWidget {
   const CustomCommentNavigation({
@@ -13,7 +14,14 @@ class CustomCommentNavigation extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CommentsView(),
+              ),
+            );
+          },
           child: const Icon(
             Icons.comment,
             size: 20,
