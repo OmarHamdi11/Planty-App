@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planty/features/community/presentation/views/create_post_view.dart';
 
 class CreatePostNavigationCustomButton extends StatelessWidget {
   const CreatePostNavigationCustomButton({
@@ -8,7 +9,14 @@ class CreatePostNavigationCustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CreatePostView(),
+          ),
+        );
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
         decoration: BoxDecoration(

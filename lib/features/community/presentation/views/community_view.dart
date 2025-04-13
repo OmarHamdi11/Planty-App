@@ -123,7 +123,7 @@ class CommunityView extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
               CommunityCustomAppBar(
-                icon: Icons.person,
+                icon: Icons.person_outline_rounded,
                 onTap: () {},
               ),
               const SizedBox(height: 20),

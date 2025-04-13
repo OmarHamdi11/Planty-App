@@ -3,6 +3,7 @@ import 'package:planty/core/utils/colors.dart';
 import 'package:planty/features/community/presentation/views/community_view.dart';
 import 'package:planty/features/e-commerce/presentation/views/commerce_view.dart';
 import 'package:planty/features/home/presentation/views/home_view.dart';
+import 'package:planty/features/profile/presentation/views/profile_view.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({super.key});
@@ -17,6 +18,7 @@ class _NavigationViewState extends State<NavigationView> {
     const HomeView(),
     CommunityView(),
     const CommerceView(),
+    const ProfileView(),
   ];
 
   @override
@@ -54,8 +56,8 @@ class _NavigationViewState extends State<NavigationView> {
               label: "Community",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.question_answer_outlined),
-              label: "Expert",
+              icon: Icon(Icons.shopping_bag_outlined),
+              label: "Commerce",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline_outlined),

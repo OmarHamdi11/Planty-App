@@ -22,7 +22,7 @@ class CustomGetStartedButton extends StatelessWidget {
               shadowColor: Colors.transparent,
             ),
             onPressed: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => SignInView()),
               );
