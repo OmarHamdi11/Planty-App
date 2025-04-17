@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
 import 'package:planty/features/e-commerce/data/models/product_model.dart';
+import 'package:planty/features/e-commerce/presentation/views/cart_view.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/custom_category_tabs.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/custom_commerce_app_bar.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/custom_product_grid.dart';
@@ -192,7 +193,14 @@ class _CommerceViewState extends State<CommerceView> {
           children: [
             CustomCommerceAppBar(
               cartProvider: cartProvider,
-              cartNavigation: () {},
+              cartNavigation: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CartView(),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 10),
             // Search Bar

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/features/e-commerce/data/models/product_model.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
+import 'package:planty/features/e-commerce/presentation/views/cart_view.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/add_to_cart_button.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/cart_navigation_button.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/custom_description_widget.dart';
@@ -27,7 +28,14 @@ class ProductDetailView extends StatelessWidget {
         actions: [
           CartNavigationButton(
             cartProvider: cartProvider,
-            cartNavigation: () {},
+            cartNavigation: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartView(),
+                ),
+              );
+            },
           ),
         ],
       ),
