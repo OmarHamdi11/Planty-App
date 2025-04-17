@@ -14,10 +14,10 @@ class HomeView extends StatelessWidget {
       backgroundColor: AppColors.secondaryColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              //const SizedBox(height: 20),
               const CustomAppBar(),
               const SizedBox(height: 50),
               CustomHomeButton(

@@ -121,7 +121,6 @@ class CommunityView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              const SizedBox(height: 20),
               CommunityCustomAppBar(
                 icon: Icons.person_outline_rounded,
                 onTap: () {},

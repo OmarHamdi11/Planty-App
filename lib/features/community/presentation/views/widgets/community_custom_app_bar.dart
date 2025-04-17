@@ -23,17 +23,20 @@ class CommunityCustomAppBar extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.shadowColor.withOpacity(.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(
-              icon,
-              color: AppColors.primaryColor,
-              size: 40,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: onTap,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.shadowColor.withOpacity(.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                icon,
+                color: AppColors.primaryColor,
+                size: 40,
+              ),
             ),
           ),
         ),

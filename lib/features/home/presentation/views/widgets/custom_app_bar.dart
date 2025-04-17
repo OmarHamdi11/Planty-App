@@ -17,14 +17,12 @@ class CustomAppBar extends StatelessWidget {
         ),
         Row(
           children: [
-            AppBarButton(
-              icon: Icons.shopping_cart_outlined,
-              onTap: () {},
-            ),
-            const SizedBox(width: 16),
-            AppBarButton(
-              icon: Icons.person_outline_rounded,
-              onTap: () {},
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppBarButton(
+                icon: Icons.person_outline_rounded,
+                onTap: () {},
+              ),
             ),
           ],
         )
