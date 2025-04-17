@@ -73,7 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 13),
               const ProfileHeader(),
               const SizedBox(height: 20),
               ProfileImage(
@@ -105,13 +105,13 @@ class _ProfileViewState extends State<ProfileView> {
                 isPassword: true,
               ),
               const SizedBox(height: 20),
-              const ShowPostsAndComments(
-                postNo: '0',
-                commentNo: '0',
-              ),
-              const SizedBox(height: 40),
-              const PostsWidget(),
-              const SizedBox(height: 30),
+              // const ShowPostsAndComments(
+              //   postNo: '0',
+              //   commentNo: '0',
+              // ),
+              // const SizedBox(height: 40),
+              // const PostsWidget(),
+              const SizedBox(height: 100),
               ProfileCustomButtons(
                 save: _save,
                 signOut: _signOut,

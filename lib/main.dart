@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: AppFonts.poppins,
       ),
-      home: const NavigationView(),
+      home: const SplashScreen(),
     );
   }
 }

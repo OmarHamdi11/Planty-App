@@ -18,6 +18,18 @@ class CustomBuildPost extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            blurRadius: 4,
+            color: Colors.black12,
+            offset: Offset(0, 2),
+          ),
+          BoxShadow(
+            blurRadius: 4,
+            color: Colors.black12,
+            offset: Offset(0, -2),
+          ),
+        ],
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
       ),

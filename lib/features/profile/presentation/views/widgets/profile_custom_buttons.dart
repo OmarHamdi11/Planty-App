@@ -13,12 +13,12 @@ class ProfileCustomButtons extends StatelessWidget {
   final void Function()? signOut;
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
         SaveCustomButton(
           onPressed: save,
         ),
-        const SizedBox(height: 0),
+        const SizedBox(height: 10),
         SignOutCustomButton(
           onPressed: signOut,
         ),

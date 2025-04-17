@@ -4,6 +4,7 @@ import 'package:planty/features/community/data/models/post_model.dart';
 import 'package:planty/features/community/presentation/views/widgets/community_custom_app_bar.dart';
 import 'package:planty/features/community/presentation/views/widgets/create_post_navigation_custom_button.dart';
 import 'package:planty/features/community/presentation/views/widgets/custom_build_post.dart';
+import 'package:planty/features/home/presentation/views/navigation_view.dart';
 
 class CommunityView extends StatelessWidget {
   CommunityView({super.key});
@@ -123,17 +124,26 @@ class CommunityView extends StatelessWidget {
             children: [
               CommunityCustomAppBar(
                 icon: Icons.person_outline_rounded,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NavigationView(
+                        myCurrentIndex: 3,
+                      ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 20),
               const CreatePostNavigationCustomButton(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               Expanded(
                 child: ListView.builder(
                   itemCount: posts.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.only(top: 8, bottom: 8),
                       child: CustomBuildPost(
                         post: posts[index],
                       ),

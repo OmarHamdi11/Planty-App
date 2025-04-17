@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
-import 'package:planty/core/utils/fonts.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({
@@ -23,8 +22,6 @@ class CustomSearchBar extends StatelessWidget {
         decoration: InputDecoration(
           hintText: 'Search plant',
           hintStyle: const TextStyle(
-            fontFamily: AppFonts.avenir,
-            fontSize: 20,
             color: Colors.grey,
           ),
           filled: true,

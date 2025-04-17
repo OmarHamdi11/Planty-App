@@ -24,6 +24,7 @@ class EditableField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: isPassword ? obscureText : false,
+        cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -42,7 +43,7 @@ class EditableField extends StatelessWidget {
           ),
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+            borderSide: BorderSide(color: AppColors.primaryColor, width: 2.0),
           ),
           hintText: label,
           border: const OutlineInputBorder(

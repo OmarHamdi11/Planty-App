@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:planty/core/utils/colors.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
@@ -14,11 +15,26 @@ class ProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: CircleAvatar(
-        backgroundColor: Colors.grey[300],
-        radius: 50,
-        backgroundImage: _image != null ? FileImage(_image) : null,
-        child: _image == null ? const Icon(Icons.person, size: 50) : null,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: AppColors.primaryColor,
+            width: 2,
+          ),
+        ),
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 50,
+          backgroundImage: _image != null ? FileImage(_image) : null,
+          child: _image == null
+              ? const Icon(
+                  Icons.person,
+                  size: 50,
+                  color: AppColors.primaryColor,
+                )
+              : null,
+        ),
       ),
     );
   }

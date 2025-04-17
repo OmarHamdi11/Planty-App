@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/features/diagnose/presentation/views/diagnose_view.dart';
+import 'package:planty/features/home/presentation/views/navigation_view.dart';
 import 'package:planty/features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:planty/features/home/presentation/views/widgets/custom_home_button.dart';
 import 'package:planty/features/identify/presentation/views/identify_view.dart';
@@ -19,7 +20,7 @@ class HomeView extends StatelessWidget {
             children: [
               //const SizedBox(height: 20),
               const CustomAppBar(),
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
               CustomHomeButton(
                 icon: Icons.camera_alt_outlined,
                 title: "Identify",
@@ -55,7 +56,16 @@ class HomeView extends StatelessWidget {
                 title: "Buy",
                 subTitle: "plant",
                 imagePath: "assets/images/buyPlant.png",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NavigationView(
+                        myCurrentIndex: 2,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

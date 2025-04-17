@@ -25,11 +25,16 @@ class CustomHomeButton extends StatelessWidget {
       child: Container(
         height: 160,
         decoration: BoxDecoration(
-          color: AppColors.secondaryColor2,
+          boxShadow: const [
+            BoxShadow(blurRadius: 4, color: Colors.black12),
+            BoxShadow(blurRadius: 4, color: Colors.black12),
+            BoxShadow(blurRadius: 4, color: Colors.black12),
+          ],
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 2,
-            color: AppColors.shadowColor,
+            color: AppColors.primaryColor,
           ),
         ),
         padding: const EdgeInsets.only(left: 16),

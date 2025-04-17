@@ -6,14 +6,15 @@ import 'package:planty/features/home/presentation/views/home_view.dart';
 import 'package:planty/features/profile/presentation/views/profile_view.dart';
 
 class NavigationView extends StatefulWidget {
-  const NavigationView({super.key});
+  const NavigationView({super.key, this.myCurrentIndex = 0});
+  final int myCurrentIndex;
 
   @override
   State<NavigationView> createState() => _NavigationViewState();
 }
 
 class _NavigationViewState extends State<NavigationView> {
-  int myCurrentIndex = 0;
+  late int myCurrentIndex = widget.myCurrentIndex;
   List pages = [
     const HomeView(),
     CommunityView(),
