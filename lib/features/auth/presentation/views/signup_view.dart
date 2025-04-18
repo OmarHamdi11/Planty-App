@@ -152,15 +152,19 @@ class SignUpView extends StatelessWidget {
                       CustomAuthButton(
                         title: "Sign Up",
                         onPressed: () async {
-                          if (formKey.currentState!.validate()) {
+                          bool isConnected =
+                              await InternetChecker.checkConnection();
+
+                          if (formKey.currentState!.validate() && isConnected) {
                             formKey.currentState!.save();
                             // Form is valid, proceed with login
                             print(
                                 "FirstName: $fName,LastName: $lName, Email: $email, Password: $password, Comfirm Password: $cPassword");
-                          }
-                          bool isConnected =
-                              await InternetChecker.checkConnection();
-                          if (!isConnected) {
+                          } else if (!formKey.currentState!.validate() &&
+                              isConnected) {
+                            return;
+                          } else if (formKey.currentState!.validate() &&
+                              !isConnected) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('No internet connection'),
