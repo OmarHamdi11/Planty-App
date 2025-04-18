@@ -18,6 +18,7 @@ class CustomOnboardingContent extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            height: MediaQuery.of(context).size.height - 80,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: AppColors.secondaryColor,
@@ -33,6 +34,7 @@ class CustomOnboardingContent extends StatelessWidget {
               ],
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Plant Image
                 Image.asset(
@@ -43,28 +45,29 @@ class CustomOnboardingContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Heading
-                const Text(
-                  "Order plants now",
-                  style: TextStyle(
-                    fontFamily: AppFonts.avenir,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w900,
-                    color: AppColors.primaryColor,
-                  ),
+                // Title and Description
+                const Column(
+                  children: [
+                    Text(
+                      "Order plants now",
+                      style: TextStyle(
+                        fontFamily: AppFonts.avenir,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "We sell beautiful plants that are also easy to maintain & affordable",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-
-                // Description
-                const Text(
-                  "We sell beautiful plants that are also easy to maintain & affordable",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.primaryColor,
-                  ),
-                ),
-                const SizedBox(height: 20),
               ],
             ),
           ),

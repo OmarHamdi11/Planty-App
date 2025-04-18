@@ -4,11 +4,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/features/auth/presentation/views/signin_view.dart';
 import 'package:planty/features/profile/presentation/views/widgets/editable_field.dart';
-import 'package:planty/features/profile/presentation/views/widgets/posts_widget.dart';
+// import 'package:planty/features/profile/presentation/views/widgets/posts_widget.dart';
 import 'package:planty/features/profile/presentation/views/widgets/profile_custom_buttons.dart';
 import 'package:planty/features/profile/presentation/views/widgets/profile_header.dart';
 import 'package:planty/features/profile/presentation/views/widgets/profile_image.dart';
-import 'package:planty/features/profile/presentation/views/widgets/show_posts_and_comments.dart';
+// import 'package:planty/features/profile/presentation/views/widgets/show_posts_and_comments.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});

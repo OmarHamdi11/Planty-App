@@ -47,7 +47,7 @@ class SelectImageCustomButton extends StatelessWidget {
             : ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.file(
-                  _selectedImage!,
+                  _selectedImage,
                   width: double.infinity,
                   height: 120,
                   fit: BoxFit.cover,
