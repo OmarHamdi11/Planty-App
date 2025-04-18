@@ -152,6 +152,12 @@ class SignUpView extends StatelessWidget {
                       CustomAuthButton(
                         title: "Sign Up",
                         onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            // Form is valid, proceed with login
+                            print(
+                                "FirstName: $fName,LastName: $lName, Email: $email, Password: $password, Comfirm Password: $cPassword");
+                          }
                           bool isConnected =
                               await InternetChecker.checkConnection();
                           if (!isConnected) {
@@ -162,13 +168,6 @@ class SignUpView extends StatelessWidget {
                               ),
                             );
                             return;
-                          }
-
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            // Form is valid, proceed with login
-                            print(
-                                "FirstName: $fName,LastName: $lName, Email: $email, Password: $password, Comfirm Password: $cPassword");
                           }
                         },
                       ),

@@ -96,18 +96,6 @@ class SignInView extends StatelessWidget {
                       CustomAuthButton(
                         title: "Sign In",
                         onPressed: () async {
-                          bool isConnected =
-                              await InternetChecker.checkConnection();
-                          if (!isConnected) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('No internet connection'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                            return;
-                          }
-
                           if (formKey.currentState!.validate()) {
                             // Form is valid, proceed with login
                             print("Email: $email, Password: $password");
@@ -119,6 +107,17 @@ class SignInView extends StatelessWidget {
                                 },
                               ),
                             );
+                          }
+                          bool isConnected =
+                              await InternetChecker.checkConnection();
+                          if (!isConnected) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('No internet connection'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                            return;
                           }
                         },
                       ),
