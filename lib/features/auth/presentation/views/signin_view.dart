@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/utils/internet_checker.dart';
 import 'package:planty/features/auth/presentation/views/functions/email_validator.dart';
 import 'package:planty/features/auth/presentation/views/functions/password_validator.dart';
 import 'package:planty/features/auth/presentation/views/signup_view.dart';
@@ -94,7 +95,19 @@ class SignInView extends StatelessWidget {
                       // Sign In Button
                       CustomAuthButton(
                         title: "Sign In",
-                        onPressed: () {
+                        onPressed: () async {
+                          bool isConnected =
+                              await InternetChecker.checkConnection();
+                          if (!isConnected) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('No internet connection'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                            return;
+                          }
+
                           if (formKey.currentState!.validate()) {
                             // Form is valid, proceed with login
                             print("Email: $email, Password: $password");
