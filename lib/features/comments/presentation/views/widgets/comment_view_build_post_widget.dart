@@ -13,8 +13,8 @@ class CommentViewBuildPostWidget extends StatelessWidget {
         Row(
           children: [
             CircleAvatar(
-              backgroundImage: const NetworkImage(
-                'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+              backgroundImage: const AssetImage(
+                "assets/images/user.jpg",
               ),
               onBackgroundImageError: (_, __) {},
             ),
@@ -30,8 +30,8 @@ class CommentViewBuildPostWidget extends StatelessWidget {
         const SizedBox(height: 10),
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            'https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          child: Image.asset(
+            "assets/images/community.jpg",
             width: double.infinity,
             height: 200,
             fit: BoxFit.cover,

@@ -16,37 +16,37 @@ class _CommentsViewState extends State<CommentsView> {
 
   final List<CommentModel> comments = [
     CommentModel(
-      userImage: "https://i.pravatar.cc/100?img=3",
+      userImage: "assets/images/user.jpg",
       userName: "islam Mohammed",
       content:
           "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
     ),
     CommentModel(
-      userImage: "https://i.pravatar.cc/100?img=3",
+      userImage: "assets/images/user.jpg",
       userName: "islam Mohammed",
       content:
           "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
     ),
     CommentModel(
-      userImage: "https://i.pravatar.cc/100?img=3",
+      userImage: "assets/images/user.jpg",
       userName: "islam Mohammed",
       content:
           "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
     ),
     CommentModel(
-      userImage: "https://i.pravatar.cc/100?img=3",
+      userImage: "assets/images/user.jpg",
       userName: "islam Mohammed",
       content:
           "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
     ),
     CommentModel(
-      userImage: "https://i.pravatar.cc/100?img=3",
+      userImage: "assets/images/user.jpg",
       userName: "islam Mohammed",
       content:
           "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
     ),
     CommentModel(
-      userImage: "https://i.pravatar.cc/100?img=3",
+      userImage: "assets/images/user.jpg",
       userName: "islam Mohammed",
       content:
           "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",

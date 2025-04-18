@@ -18,7 +18,7 @@ class CommentViewBuildCommentWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
-          backgroundImage: NetworkImage(profilePic),
+          backgroundImage: AssetImage(profilePic),
           onBackgroundImageError: (_, __) {},
         ),
         const SizedBox(width: 10),

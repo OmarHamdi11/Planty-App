@@ -13,8 +13,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Ibrahim Ali",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "Help me !",
       authorId: "1",
       comments: 3,
@@ -22,8 +21,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Omar Hamdi",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "How do i care of an aloe vera !",
       authorId: "2",
       comments: 1,
@@ -31,8 +29,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Ibrahim Ali",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "Help me !",
       authorId: "1",
       comments: 3,
@@ -40,8 +37,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Omar Hamdi",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content:
           "Plants are the green architects of nature, converting sunlight into life through photosynthesis.\nThey provide oxygen, food, and beauty, sustaining ecosystems and human well-being.",
       authorId: "2",
@@ -50,8 +46,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Omar Hamdi",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content:
           "Plants are the green architects of nature, converting sunlight into life through photosynthesis.\nThey provide oxygen, food, and beauty, sustaining ecosystems and human well-being.",
       authorId: "2",
@@ -60,8 +55,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Ibrahim Ali",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "Help me !",
       authorId: "1",
       comments: 3,
@@ -69,8 +63,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Omar Hamdi",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "How do i care of an aloe vera !",
       authorId: "2",
       comments: 1,
@@ -78,8 +71,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Ibrahim Ali",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "Help me !",
       authorId: "1",
       comments: 3,
@@ -87,8 +79,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Omar Hamdi",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "How do i care of an aloe vera !",
       authorId: "2",
       comments: 1,
@@ -96,8 +87,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Ibrahim Ali",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "Help me !",
       authorId: "1",
       comments: 3,
@@ -105,8 +95,7 @@ class CommunityView extends StatelessWidget {
     const PostModel(
       name: "Omar Hamdi",
       userImage: "assets/images/user.jpg",
-      imageUrl:
-          "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "assets/images/community.jpg",
       content: "How do i care of an aloe vera !",
       authorId: "2",
       comments: 1,

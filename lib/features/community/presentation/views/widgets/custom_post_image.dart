@@ -12,7 +12,7 @@ class CustomPostImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
-      child: Image.network(
+      child: Image.asset(
         imageUrl,
         height: 150,
         width: double.infinity,

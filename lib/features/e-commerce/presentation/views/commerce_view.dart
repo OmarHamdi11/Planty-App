@@ -32,143 +32,123 @@ class _CommerceViewState extends State<CommerceView> {
     ProductModel(
       name: 'Melon',
       category: 'Popular',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 4,
       description:
-          'Melon is a delicious and refreshing fruit that is perfect for summer. It is low in calories and high in vitamins A and C.',
+          'Plant Melon is a delicious, sun-loving fruit perfect for home gardens. Known for its sweet, juicy flesh and refreshing taste, melons thrive in warm climates and can be grown in gardens, containers, or raised beds. With proper care, you can enjoy homegrown melons in just a few months!',
     ),
     ProductModel(
       name: 'Orange',
       category: 'Outdoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 2,
     ),
     ProductModel(
       name: 'Paddy',
       category: 'Recommended',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 1,
     ),
     ProductModel(
       name: 'Papaya',
       category: 'Outdoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 6,
     ),
     ProductModel(
       name: 'Melon',
       category: 'Popular',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 4,
     ),
     ProductModel(
       name: 'Orange',
       category: 'Outdoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 2,
     ),
     ProductModel(
       name: 'Paddy',
       category: 'Recommended',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 1,
     ),
     ProductModel(
       name: 'Papaya',
       category: 'Outdoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 6,
     ),
     ProductModel(
       name: 'Melon',
       category: 'Popular',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 4,
     ),
     ProductModel(
       name: 'Orange',
       category: 'Outdoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 2,
     ),
     ProductModel(
       name: 'Paddy',
       category: 'Recommended',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 1,
     ),
     ProductModel(
       name: 'Papaya',
       category: 'Indoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 6,
     ),
     ProductModel(
       name: 'Melon',
       category: 'Popular',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 4,
     ),
     ProductModel(
       name: 'Orange',
       category: 'Outdoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 2,
     ),
     ProductModel(
       name: 'Paddy',
       category: 'Recommended',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 1,
     ),
     ProductModel(
       name: 'Papaya',
       category: 'Outdoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 6,
     ),
     ProductModel(
       name: 'Melon',
       category: 'Popular',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 4,
     ),
     ProductModel(
       name: 'Orange',
       category: 'Indoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 2,
     ),
     ProductModel(
       name: 'Paddy',
       category: 'Recommended',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 1,
     ),
     ProductModel(
       name: 'Papaya',
       category: 'Indoor',
-      imageUrl:
-          'https://images.pexels.com/photos/8258536/pexels-photo-8258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageUrl: 'assets/images/commerce.jpg',
       price: 6,
     ),
   ];
