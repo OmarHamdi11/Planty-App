@@ -17,13 +17,11 @@ class SignInView extends StatelessWidget {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>(); // Form Key
 
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    // final _emailController = TextEditingController();
-    // final _passwordController = TextEditingController();
-    String? email;
-    String? password;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -65,25 +63,19 @@ class SignInView extends StatelessWidget {
 
                       // Email Field
                       CustomAuthTextField(
-                        //controller: _emailController,
+                        controller: _emailController,
                         icon: Icons.mail,
                         hintText: "Email Address",
-                        onChanged: (value) {
-                          email = value;
-                        },
                         validator: emailValidator,
                       ),
                       const SizedBox(height: 20),
 
                       // Password Field
                       CustomAuthTextField(
-                        //controller: _passwordController,
+                        controller: _passwordController,
                         icon: Icons.lock,
                         hintText: "Password",
                         obscureText: true,
-                        onChanged: (value) {
-                          password = value;
-                        },
                         validator: passwordValidator,
                       ),
                       const SizedBox(height: 5),
@@ -100,8 +92,11 @@ class SignInView extends StatelessWidget {
                               await InternetChecker.checkConnection();
 
                           if (formKey.currentState!.validate() && isConnected) {
+                            String email = _emailController.text.trim();
+                            String password = _passwordController.text.trim();
                             // Form is valid, proceed with login
-                            print("Email: $email, Password: $password");
+                            print(
+                                "SignIn Data: Email: $email, Password: $password");
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

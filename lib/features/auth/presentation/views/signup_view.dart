@@ -15,20 +15,14 @@ class SignUpView extends StatelessWidget {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>(); // Form Key
 
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _reEnterPassController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    // final _emailController = TextEditingController();
-    // final _passwordController = TextEditingController();
-    // final _reEnterPassController = TextEditingController();
-    // final _firstNameController = TextEditingController();
-    // final _lastNameController = TextEditingController();
-
-    String? fName;
-    String? lName;
-    String? email;
-    String? password;
-    String? cPassword;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -70,12 +64,9 @@ class SignUpView extends StatelessWidget {
 
                       // Fname Field
                       CustomAuthTextField(
-                        //controller: _firstNameController,
+                        controller: _firstNameController,
                         icon: Icons.person_outline_rounded,
                         hintText: "First Name",
-                        onChanged: (value) {
-                          fName = value;
-                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Required Field';
@@ -87,12 +78,9 @@ class SignUpView extends StatelessWidget {
 
                       // Lname Field
                       CustomAuthTextField(
-                        //controller: _lastNameController,
+                        controller: _lastNameController,
                         icon: Icons.person_outline_rounded,
                         hintText: "Last Name",
-                        onChanged: (value) {
-                          lName = value;
-                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Required Field';
@@ -104,43 +92,34 @@ class SignUpView extends StatelessWidget {
 
                       // Email Field
                       CustomAuthTextField(
-                        //controller: _emailController,
+                        controller: _emailController,
                         icon: Icons.mail_outline_rounded,
                         hintText: "Email Address",
-                        onChanged: (value) {
-                          email = value;
-                        },
                         validator: emailValidator,
                       ),
                       const SizedBox(height: 20),
 
                       // Password Field
                       CustomAuthTextField(
-                        //controller: _passwordController,
+                        controller: _passwordController,
                         icon: Icons.lock_outline_rounded,
                         hintText: "Password",
                         obscureText: true,
-                        onChanged: (value) {
-                          password = value;
-                        },
                         validator: passwordValidator,
                       ),
                       const SizedBox(height: 20),
 
                       // Confirm Password Field
                       CustomAuthTextField(
-                        //controller: _reEnterPassController,
+                        controller: _reEnterPassController,
                         icon: Icons.lock_outline_rounded,
                         hintText: "Confirm Password",
                         obscureText: true,
-                        onChanged: (value) {
-                          cPassword = value;
-                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Required Field';
                           }
-                          if (value != password) {
+                          if (value != _passwordController.text) {
                             return 'Passwords do not match';
                           }
                           return null;
@@ -157,9 +136,23 @@ class SignUpView extends StatelessWidget {
 
                           if (formKey.currentState!.validate() && isConnected) {
                             formKey.currentState!.save();
+                            String fName = _firstNameController.text.trim();
+                            String lName = _lastNameController.text.trim();
+                            String email = _emailController.text.trim();
+                            String password = _passwordController.text.trim();
+                            String cPassword =
+                                _reEnterPassController.text.trim();
                             // Form is valid, proceed with login
                             print(
-                                "FirstName: $fName,LastName: $lName, Email: $email, Password: $password, Comfirm Password: $cPassword");
+                                "SignUp Data: FirstName: $fName,LastName: $lName, Email: $email, Password: $password, Comfirm Password: $cPassword");
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SignInView();
+                                },
+                              ),
+                            );
                           } else if (!formKey.currentState!.validate() &&
                               isConnected) {
                             return;

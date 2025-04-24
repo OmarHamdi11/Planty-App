@@ -7,27 +7,24 @@ class CustomAuthTextField extends StatelessWidget {
     super.key,
     required this.icon,
     required this.hintText,
-    required this.onChanged,
     required this.validator,
-    //required this.controller,
+    required this.controller,
     this.obscureText = false,
   });
 
   final IconData icon;
   final String hintText;
-  final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final bool? obscureText;
-  //final TextEditingController? controller;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //controller: controller,
+      controller: controller,
       cursorColor: AppColors.primaryColor,
       obscureText: obscureText!,
       validator: validator,
-      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(
