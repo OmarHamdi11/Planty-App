@@ -13,15 +13,23 @@ class BuildCommentInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        padding: const EdgeInsets.only(right: 5, left: 5, top: 5),
         decoration: BoxDecoration(
-          color: AppColors.primaryColor.withOpacity(.5),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
           border: Border(
             top: BorderSide(color: Colors.grey.shade300),
           ),
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
           ),
         ),
         child: Row(
@@ -43,7 +51,11 @@ class BuildCommentInputField extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             IconButton(
-              icon: const Icon(Icons.send, color: Colors.white),
+              icon: const Icon(
+                Icons.send,
+                color: AppColors.primaryColor,
+                size: 35,
+              ),
               onPressed: () {
                 print("User typed: ${_commentController.text}");
                 _commentController.clear();

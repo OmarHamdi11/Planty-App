@@ -26,15 +26,18 @@ class PostCommentsBody extends StatelessWidget {
               children: [
                 const CommentViewBuildPostWidget(),
                 const SizedBox(height: 20),
-                const Text(
-                  'Comments',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                const Divider(
+                  height: 20,
                 ),
-                const SizedBox(height: 10),
+                // const Text(
+                //   'All Comments',
+                //   style: TextStyle(
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.bold,
+                //     color: Colors.black,
+                //   ),
+                // ),
+                const SizedBox(height: 20),
                 ...comments.map(
                   (comment) => Padding(
                     padding: const EdgeInsets.only(bottom: 12),

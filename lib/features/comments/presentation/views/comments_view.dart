@@ -71,6 +71,7 @@ class _CommentsViewState extends State<CommentsView> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFDE7),
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black, size: 30),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: BackButton(
