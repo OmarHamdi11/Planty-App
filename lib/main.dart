@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/fonts.dart';
-import 'package:planty/features/comments/presentation/views/comments_view.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: AppFonts.poppins,
       ),
-      home: const CommentsView(),
+      home: const SplashScreen(),
     );
   }
 }
