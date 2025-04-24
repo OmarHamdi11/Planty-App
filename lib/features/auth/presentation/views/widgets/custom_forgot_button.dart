@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/features/auth/presentation/views/forget_password_view.dart';
 
 class CustomForgotButton extends StatelessWidget {
   const CustomForgotButton({
@@ -11,7 +12,14 @@ class CustomForgotButton extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ForgetPasswordView(),
+            ),
+          );
+        },
         child: const Text(
           "Forgot password?",
           style: TextStyle(
