@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
+import 'package:planty/features/e-commerce/presentation/views/checkout_view.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/build_row.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/checkout_button.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/custom_cart_items.dart';
@@ -127,8 +128,16 @@ class _CartViewState extends State<CartView> {
             CheckoutButton(
               onTap: () {
                 // TODO: Handle checkout logic
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Proceeding to checkout...")),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CheckoutView(
+                      shippingLocation: selectedLocation,
+                      subtotal: subtotal,
+                      shipping: shipping,
+                      total: total,
+                    ),
+                  ),
                 );
               },
             )
