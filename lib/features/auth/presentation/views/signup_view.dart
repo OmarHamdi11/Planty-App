@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planty/features/auth/presentation/manager/cubit/sign_up_cubit.dart';
+import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:planty/features/auth/presentation/views/signin_view.dart';
 import 'package:planty/features/auth/presentation/views/widgets/sign_up_body.dart';
 
