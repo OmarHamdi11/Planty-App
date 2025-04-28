@@ -8,6 +8,7 @@ import 'package:planty/features/profile/presentation/views/widgets/editable_fiel
 import 'package:planty/features/profile/presentation/views/widgets/profile_custom_buttons.dart';
 import 'package:planty/features/profile/presentation/views/widgets/profile_header.dart';
 import 'package:planty/features/profile/presentation/views/widgets/profile_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:planty/features/profile/presentation/views/widgets/show_posts_and_comments.dart';
 
 class ProfileView extends StatefulWidget {
@@ -52,7 +53,8 @@ class _ProfileViewState extends State<ProfileView> {
 
   void _signOut() async {
     // TODO: Clear user session or token here
-
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
     // TODO: Navigate to the login screen
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Signed out successfully!")),

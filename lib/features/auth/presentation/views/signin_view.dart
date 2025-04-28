@@ -22,7 +22,10 @@ class SignInView extends StatelessWidget {
           );
         } else if (state is SignInSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Login Successfully!')),
+            const SnackBar(
+              content: Text('Login Successfully!'),
+              backgroundColor: Colors.green,
+            ),
           );
           Navigator.pushReplacement(
             context,

@@ -4,22 +4,30 @@ import 'package:planty/core/utils/fonts.dart';
 import 'package:planty/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
+import 'package:planty/features/home/presentation/views/navigation_view.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final token = prefs.getString('token');
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CartProvider()),
       ],
-      child: const MyApp(),
+      child: MyApp(
+        token: token,
+      ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, this.token});
+  final String? token;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: AppFonts.poppins,
         ),
-        home: const SplashScreen(),
+        home: token != null ? const NavigationView() : const SplashScreen(),
       ),
     );
   }
