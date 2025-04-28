@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
-import 'package:planty/features/e-commerce/presentation/views/commerce_view.dart';
+import 'package:planty/features/home/presentation/views/navigation_view.dart';
 import 'package:provider/provider.dart';
 
 Future<String?> editAddressDialog(
@@ -63,7 +63,9 @@ Future<void> confirmOrderDialog(
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const CommerceView(),
+                builder: (context) => const NavigationView(
+                  myCurrentIndex: 2,
+                ),
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(
