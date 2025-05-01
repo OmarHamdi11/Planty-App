@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:planty/features/comments/data/models/comment_model.dart';
 import 'package:planty/features/comments/presentation/views/widgets/post_comments_body.dart';
+import 'package:planty/features/community/data/models/post_model.dart';
 
 class CommentsView extends StatefulWidget {
-  const CommentsView({super.key});
+  const CommentsView({super.key, required this.comments});
+
+  final List<CommentModel> comments;
 
   @override
   State<CommentsView> createState() => _CommentsViewState();
@@ -13,45 +15,6 @@ class CommentsView extends StatefulWidget {
 class _CommentsViewState extends State<CommentsView> {
   final TextEditingController _commentController = TextEditingController();
   bool hasInternet = true;
-
-  final List<CommentModel> comments = [
-    CommentModel(
-      userImage: "assets/images/user.jpg",
-      userName: "islam Mohammed",
-      content:
-          "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
-    ),
-    CommentModel(
-      userImage: "assets/images/user.jpg",
-      userName: "islam Mohammed",
-      content:
-          "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
-    ),
-    CommentModel(
-      userImage: "assets/images/user.jpg",
-      userName: "islam Mohammed",
-      content:
-          "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
-    ),
-    CommentModel(
-      userImage: "assets/images/user.jpg",
-      userName: "islam Mohammed",
-      content:
-          "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
-    ),
-    CommentModel(
-      userImage: "assets/images/user.jpg",
-      userName: "islam Mohammed",
-      content:
-          "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
-    ),
-    CommentModel(
-      userImage: "assets/images/user.jpg",
-      userName: "islam Mohammed",
-      content:
-          "Place aloe vera in bright, indirect sunlight. Water every 2–3 weeks...",
-    ),
-  ];
 
   @override
   void initState() {
@@ -81,7 +44,7 @@ class _CommentsViewState extends State<CommentsView> {
           },
         ),
         title: const Text(
-          'Ahmed Amar',
+          'Comments',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -91,7 +54,7 @@ class _CommentsViewState extends State<CommentsView> {
       ),
       body: hasInternet
           ? PostCommentsBody(
-              comments: comments,
+              comments: widget.comments,
               commentController: _commentController,
             )
           : _buildNoInternetWidget(),

@@ -6,18 +6,20 @@ class CustomPostImage extends StatelessWidget {
     required this.imageUrl,
   });
 
-  final String imageUrl;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
-      child: Image.asset(
-        imageUrl,
-        height: 150,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
+      child: imageUrl != null
+          ? Image.network(
+              imageUrl!,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            )
+          : const SizedBox(),
     );
   }
 }

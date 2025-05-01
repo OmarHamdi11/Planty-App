@@ -21,7 +21,9 @@ class CustomBuildPost extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const CommentsView(),
+            builder: (context) => CommentsView(
+              comments: post.comments,
+            ),
           ),
         );
       },
@@ -47,15 +49,18 @@ class CustomBuildPost extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomPostHeader(
-              userName: post.name,
+              userName: post.authorName,
               userImage: post.userImage,
             ),
             const SizedBox(height: 8),
             PostContent(content: post.content),
             const SizedBox(height: 20),
-            CustomPostImage(imageUrl: post.imageUrl),
+            CustomPostImage(imageUrl: post.postImage),
             const SizedBox(height: 8),
-            CustomCommentNavigation(comments: post.comments),
+            CustomCommentNavigation(
+              comments: post.comments.length,
+              post: post,
+            ),
           ],
         ),
       ),

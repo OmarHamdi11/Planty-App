@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:planty/features/comments/presentation/views/comments_view.dart';
+import 'package:planty/features/community/data/models/post_model.dart';
 
 class CustomCommentNavigation extends StatelessWidget {
   const CustomCommentNavigation({
     super.key,
     required this.comments,
+    required this.post,
   });
 
   final int comments;
+  final PostModel post;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,9 @@ class CustomCommentNavigation extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const CommentsView(),
+                builder: (context) => CommentsView(
+                  comments: post.comments,
+                ),
               ),
             );
           },

@@ -1,146 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planty/core/utils/colors.dart';
-import 'package:planty/features/community/data/models/post_model.dart';
+import 'package:planty/features/community/presentation/manager/community_cubit/community_cubit.dart';
+import 'package:planty/features/community/presentation/manager/community_cubit/community_state.dart';
 import 'package:planty/features/community/presentation/views/widgets/community_custom_app_bar.dart';
 import 'package:planty/features/community/presentation/views/widgets/create_post_navigation_custom_button.dart';
 import 'package:planty/features/community/presentation/views/widgets/custom_build_post.dart';
 import 'package:planty/features/home/presentation/views/navigation_view.dart';
 
 class CommunityView extends StatelessWidget {
-  CommunityView({super.key});
-
-  final List<PostModel> posts = [
-    const PostModel(
-      name: "Ibrahim Ali",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "Help me !",
-      authorId: "1",
-      comments: 3,
-    ),
-    const PostModel(
-      name: "Omar Hamdi",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "How do i care of an aloe vera !",
-      authorId: "2",
-      comments: 1,
-    ),
-    const PostModel(
-      name: "Ibrahim Ali",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "Help me !",
-      authorId: "1",
-      comments: 3,
-    ),
-    const PostModel(
-      name: "Omar Hamdi",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content:
-          "Plants are the green architects of nature, converting sunlight into life through photosynthesis.\nThey provide oxygen, food, and beauty, sustaining ecosystems and human well-being.",
-      authorId: "2",
-      comments: 1,
-    ),
-    const PostModel(
-      name: "Omar Hamdi",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content:
-          "Plants are the green architects of nature, converting sunlight into life through photosynthesis.\nThey provide oxygen, food, and beauty, sustaining ecosystems and human well-being.",
-      authorId: "2",
-      comments: 1,
-    ),
-    const PostModel(
-      name: "Ibrahim Ali",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "Help me !",
-      authorId: "1",
-      comments: 3,
-    ),
-    const PostModel(
-      name: "Omar Hamdi",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "How do i care of an aloe vera !",
-      authorId: "2",
-      comments: 1,
-    ),
-    const PostModel(
-      name: "Ibrahim Ali",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "Help me !",
-      authorId: "1",
-      comments: 3,
-    ),
-    const PostModel(
-      name: "Omar Hamdi",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "How do i care of an aloe vera !",
-      authorId: "2",
-      comments: 1,
-    ),
-    const PostModel(
-      name: "Ibrahim Ali",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "Help me !",
-      authorId: "1",
-      comments: 3,
-    ),
-    const PostModel(
-      name: "Omar Hamdi",
-      userImage: "assets/images/user.jpg",
-      imageUrl: "assets/images/community.jpg",
-      content: "How do i care of an aloe vera !",
-      authorId: "2",
-      comments: 1,
-    ),
-  ];
+  const CommunityView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.secondaryColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              CommunityCustomAppBar(
-                icon: Icons.person_outline_rounded,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NavigationView(
-                        myCurrentIndex: 3,
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 20),
-              const CreatePostNavigationCustomButton(),
-              const SizedBox(height: 16),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: CustomBuildPost(
-                        post: posts[index],
+    return BlocProvider(
+      create: (context) => CommunityCubit()..fetchPosts(),
+      child: Scaffold(
+        backgroundColor: AppColors.secondaryColor,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                CommunityCustomAppBar(
+                  icon: Icons.person_outline_rounded,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NavigationView(
+                          myCurrentIndex: 3,
+                        ),
                       ),
                     );
                   },
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+                const CreatePostNavigationCustomButton(),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: BlocBuilder<CommunityCubit, CommunityState>(
+                    builder: (context, state) {
+                      if (state is CommunityLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is CommunityFailure) {
+                        return Center(child: Text(state.error));
+                      } else if (state is CommunitySuccess) {
+                        return ListView.builder(
+                          itemCount: state.posts.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: CustomBuildPost(post: state.posts[index]),
+                            );
+                          },
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

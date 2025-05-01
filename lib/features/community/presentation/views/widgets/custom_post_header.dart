@@ -8,7 +8,7 @@ class CustomPostHeader extends StatelessWidget {
     required this.userName,
   });
 
-  final String userImage;
+  final String? userImage;
   final String userName;
 
   @override

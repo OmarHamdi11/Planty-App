@@ -1,67 +1,56 @@
-//import 'package:equatable/equatable.dart';
-
-// class PostModel extends Equatable {
-//   final String id;
-//   final String title;
-//   final String content;
-//   final String authorId;
-//   final String imageUrl;
-//   final DateTime createdAt;
-//   final List<String> likes;
-
-//   const PostModel({
-//     required this.id,
-//     required this.title,
-//     required this.content,
-//     required this.authorId,
-//     required this.imageUrl,
-//     required this.createdAt,
-//     this.likes = const [],
-//   });
-
-//   factory PostModel.fromJson(Map<String, dynamic> json) {
-//     return PostModel(
-//       id: json['id'] as String,
-//       title: json['title'] as String,
-//       content: json['content'] as String,
-//       authorId: json['authorId'] as String,
-//       imageUrl: json['imageUrl'] as String,
-//       createdAt: DateTime.parse(json['createdAt'] as String),
-//       likes: List<String>.from(json['likes'] ?? []),
-//     );
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'id': id,
-//       'title': title,
-//       'content': content,
-//       'authorId': authorId,
-//       'imageUrl': imageUrl,
-//       'createdAt': createdAt.toIso8601String(),
-//       'likes': likes,
-//     };
-//   }
-
-//   @override
-//   List<Object?> get props =>
-//       [id, title, content, authorId, imageUrl, createdAt, likes];
-// }
-
 class PostModel {
-  final String name;
-  final String userImage;
-  final String imageUrl;
+  final int id;
   final String content;
-  final String authorId;
-  final int comments;
+  final String authorName;
+  final String? userImage;
+  final String? postImage;
+  final List<CommentModel> comments;
 
   const PostModel({
-    required this.name,
-    required this.userImage,
-    required this.comments,
+    required this.id,
     required this.content,
-    required this.authorId,
-    required this.imageUrl,
+    required this.authorName,
+    this.userImage,
+    this.postImage,
+    required this.comments,
   });
+
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      id: json['id'],
+      content: json['content'],
+      authorName: json['authorName'],
+      userImage: json['user_Picture'] != null
+          ? "http://planty.runasp.net${json['user_Picture']}"
+          : null,
+      postImage: json['post_Picture'] != null
+          ? "http://planty.runasp.net${json['post_Picture']}"
+          : null,
+      comments: (json['comments'] as List<dynamic>)
+          .map((e) => CommentModel.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class CommentModel {
+  final String content;
+  final String authorName;
+  final String? authorPicture;
+
+  CommentModel({
+    required this.content,
+    required this.authorName,
+    this.authorPicture,
+  });
+
+  factory CommentModel.fromJson(Map<String, dynamic> json) {
+    return CommentModel(
+      content: json['content'],
+      authorName: json['authorName'],
+      authorPicture: json['authorPicture'] != null
+          ? "http://planty.runasp.net${json['authorPicture']}"
+          : null,
+    );
+  }
 }
