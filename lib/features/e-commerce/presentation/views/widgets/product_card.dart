@@ -28,7 +28,7 @@ class ProductCard extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(16),
             ),
-            child: Image.asset(
+            child: Image.network(
               product.imageUrl,
               height: 100,
               width: double.infinity,
@@ -54,7 +54,7 @@ class ProductCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              product.category,
+              product.type,
               style: TextStyle(color: Colors.grey[600], fontSize: 12),
             ),
           ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
-import 'package:planty/features/e-commerce/data/models/product_model.dart';
+import 'package:planty/features/e-commerce/presentation/manager/product_cubit/product_cubit.dart';
+import 'package:planty/features/e-commerce/presentation/manager/product_cubit/product_state.dart';
 import 'package:planty/features/e-commerce/presentation/views/cart_view.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/custom_category_tabs.dart';
 import 'package:planty/features/e-commerce/presentation/views/widgets/custom_commerce_app_bar.dart';
@@ -28,139 +30,10 @@ class _CommerceViewState extends State<CommerceView> {
     "Outdoor"
   ];
 
-  final List<ProductModel> allProducts = [
-    ProductModel(
-      name: 'Melon',
-      category: 'Popular',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 4,
-      description:
-          'Plant Melon is a delicious, sun-loving fruit perfect for home gardens. Known for its sweet, juicy flesh and refreshing taste, melons thrive in warm climates and can be grown in gardens, containers, or raised beds. With proper care, you can enjoy homegrown melons in just a few months!',
-    ),
-    ProductModel(
-      name: 'Orange',
-      category: 'Outdoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 2,
-    ),
-    ProductModel(
-      name: 'Paddy',
-      category: 'Recommended',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 1,
-    ),
-    ProductModel(
-      name: 'Papaya',
-      category: 'Outdoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 6,
-    ),
-    ProductModel(
-      name: 'Melon',
-      category: 'Popular',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 4,
-    ),
-    ProductModel(
-      name: 'Orange',
-      category: 'Outdoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 2,
-    ),
-    ProductModel(
-      name: 'Paddy',
-      category: 'Recommended',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 1,
-    ),
-    ProductModel(
-      name: 'Papaya',
-      category: 'Outdoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 6,
-    ),
-    ProductModel(
-      name: 'Melon',
-      category: 'Popular',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 4,
-    ),
-    ProductModel(
-      name: 'Orange',
-      category: 'Outdoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 2,
-    ),
-    ProductModel(
-      name: 'Paddy',
-      category: 'Recommended',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 1,
-    ),
-    ProductModel(
-      name: 'Papaya',
-      category: 'Indoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 6,
-    ),
-    ProductModel(
-      name: 'Melon',
-      category: 'Popular',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 4,
-    ),
-    ProductModel(
-      name: 'Orange',
-      category: 'Outdoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 2,
-    ),
-    ProductModel(
-      name: 'Paddy',
-      category: 'Recommended',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 1,
-    ),
-    ProductModel(
-      name: 'Papaya',
-      category: 'Outdoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 6,
-    ),
-    ProductModel(
-      name: 'Melon',
-      category: 'Popular',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 4,
-    ),
-    ProductModel(
-      name: 'Orange',
-      category: 'Indoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 2,
-    ),
-    ProductModel(
-      name: 'Paddy',
-      category: 'Recommended',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 1,
-    ),
-    ProductModel(
-      name: 'Papaya',
-      category: 'Indoor',
-      imageUrl: 'assets/images/commerce.jpg',
-      price: 6,
-    ),
-  ];
-
-  List<ProductModel> get filteredProducts {
-    return allProducts.where((product) {
-      final matchesCategory =
-          selectedCategory == "All" || product.category == selectedCategory;
-      final matchesSearch =
-          product.name.toLowerCase().contains(searchText.toLowerCase());
-      return matchesCategory && matchesSearch;
-    }).toList();
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductCubit>().fetchProducts();
   }
 
   @override
@@ -204,7 +77,30 @@ class _CommerceViewState extends State<CommerceView> {
             const SizedBox(height: 20),
 
             // Product Grid
-            CustomProductGrid(filteredProducts: filteredProducts),
+            BlocBuilder<ProductCubit, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is ProductLoaded) {
+                  final filteredProducts = state.products.where((product) {
+                    final matchesCategory = selectedCategory == "All" ||
+                        product.type == selectedCategory;
+                    final matchesSearch = product.name
+                        .toLowerCase()
+                        .contains(searchText.toLowerCase());
+                    return matchesCategory && matchesSearch;
+                  }).toList();
+
+                  return filteredProducts.isNotEmpty
+                      ? CustomProductGrid(filteredProducts: filteredProducts)
+                      : const Center(child: Text('No products found.'));
+                } else if (state is ProductError) {
+                  return Center(child: Text('Error: ${state.message}'));
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
           ],
         ),
       ),

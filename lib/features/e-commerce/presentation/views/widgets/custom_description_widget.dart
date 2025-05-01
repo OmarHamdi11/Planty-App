@@ -14,7 +14,7 @@ class CustomDescriptionWidget extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: Text(
-          product.description ?? "No description available.",
+          product.details,
           style: const TextStyle(
             fontSize: 14,
             color: Colors.black87,

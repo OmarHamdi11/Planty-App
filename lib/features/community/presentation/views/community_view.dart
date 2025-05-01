@@ -147,38 +147,3 @@ class CommunityView extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-// ListView(
-//                   children: const [
-//                     CustomBuildPost(
-//                         name: "Ibrahim Ali",
-//                         message: "Help me !",
-//                         imageUrl:
-//                             "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-//                         comments: 3,
-//                         avatarColor: Colors.teal),
-//                     SizedBox(height: 16),
-//                     CustomBuildPost(
-//                       name: "Ahmed Amar",
-//                       message: "How do i care of an aloe vera !",
-//                       imageUrl:
-//                           "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-//                       comments: 1,
-//                       avatarColor: Colors.green,
-//                     ),
-//                     SizedBox(height: 16),
-//                     CustomBuildPost(
-//                       name: "Ahmed Amar",
-//                       message: "How do i care of an aloe vera !",
-//                       imageUrl:
-//                           "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-//                       comments: 1,
-//                       avatarColor: Colors.green,
-//                     ),
-//                   ],
-//                 ),

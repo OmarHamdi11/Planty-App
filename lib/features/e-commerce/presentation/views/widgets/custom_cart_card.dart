@@ -29,7 +29,7 @@ class CustomCartCard extends StatelessWidget {
             // Image
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
+              child: Image.network(
                 product.imageUrl,
                 height: 60,
                 width: 60,

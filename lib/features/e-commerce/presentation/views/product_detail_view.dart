@@ -80,7 +80,7 @@ class ImageCustomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
-      child: Image.asset(
+      child: Image.network(
         product.imageUrl,
         height: 300,
         width: double.infinity,
