@@ -114,20 +114,7 @@ class _CreatePostViewState extends State<CreatePostView> {
               onPressed: () {
                 // Handle post submission
                 if (_selectedImage != null && _postContent != null) {
-                  // Example: Upload to server or storage
-                  // For example, you can use Firebase Storage or any other service
-                  // to upload the image and post content.
-                  // After uploading, you can save the post details in your database.
-                  // For demonstration, we'll just print the values to the console.
-                  // For now, just print the file path
-                  print('Post submitted!');
-                  print('Author name: $authorName');
-                  print('Author image: $authorImage');
-                  print('Image selected: ${_selectedImage!.path}');
-                  print('Post content: $_postContent');
-
-                  // Reset the state after posting
-                  // You can also navigate back or show a success message
+                  // Here you would typically send the post data to your backend
                   Navigator.pop(context); // Close the CreatePostView
                   setState(
                     () {
