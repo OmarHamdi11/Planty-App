@@ -22,7 +22,7 @@ class CustomCommentNavigation extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => CommentsView(
-                  comments: post.comments,
+                  postId: post.id,
                 ),
               ),
             );

@@ -5,9 +5,11 @@ class BuildCommentInputField extends StatelessWidget {
   const BuildCommentInputField({
     super.key,
     required TextEditingController commentController,
+    required this.onPressed,
   }) : _commentController = commentController;
 
   final TextEditingController _commentController;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +58,7 @@ class BuildCommentInputField extends StatelessWidget {
                 color: AppColors.primaryColor,
                 size: 35,
               ),
-              onPressed: () {
-                print("User typed: ${_commentController.text}");
-                _commentController.clear();
-              },
+              onPressed: onPressed,
             ),
           ],
         ),

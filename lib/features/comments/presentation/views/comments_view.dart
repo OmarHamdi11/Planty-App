@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planty/features/comments/presentation/views/widgets/build_comment_input_field.dart';
 import 'package:planty/features/comments/presentation/views/widgets/post_comments_body.dart';
-import 'package:planty/features/community/data/models/post_model.dart';
+import 'package:planty/features/community/presentation/manager/community_cubit/community_cubit.dart';
+import 'package:planty/features/community/presentation/manager/community_cubit/community_state.dart';
 
 class CommentsView extends StatefulWidget {
-  const CommentsView({super.key, required this.comments});
+  const CommentsView({super.key, required this.postId});
 
-  final List<CommentModel> comments;
+  final int postId;
 
   @override
   State<CommentsView> createState() => _CommentsViewState();
@@ -20,6 +23,7 @@ class _CommentsViewState extends State<CommentsView> {
   void initState() {
     super.initState();
     _checkConnection();
+    context.read<CommunityCubit>().fetchPosts();
   }
 
   Future<void> _checkConnection() async {
@@ -52,12 +56,54 @@ class _CommentsViewState extends State<CommentsView> {
         ),
         centerTitle: true,
       ),
-      body: hasInternet
-          ? PostCommentsBody(
-              comments: widget.comments,
-              commentController: _commentController,
-            )
-          : _buildNoInternetWidget(),
+      body: Column(
+        children: [
+          hasInternet
+              ? BlocBuilder<CommunityCubit, CommunityState>(
+                  builder: (context, state) {
+                    if (state is CommunityLoading) {
+                      return const Expanded(
+                          child: Center(child: CircularProgressIndicator()));
+                    } else if (state is CommunityFailure) {
+                      return Center(child: Text(state.error));
+                    } else if (state is CommunitySuccess) {
+                      final post = state.posts.firstWhere(
+                        (post) => post.id == widget.postId,
+                      );
+
+                      if (post.comments.isNotEmpty) {
+                        return PostCommentsBody(
+                          comments: post.comments,
+                        );
+                      } else {
+                        return const Expanded(
+                          child: Center(
+                            child: Text(
+                              "No comments yet",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                )
+              : _buildNoInternetWidget(),
+          BuildCommentInputField(
+            commentController: _commentController,
+            onPressed: () {
+              print("User typed: ${_commentController.text}");
+              _commentController.clear();
+            },
+          ),
+        ],
+      ),
     );
   }
 
