@@ -7,9 +7,11 @@ class ProfileImage extends StatelessWidget {
     super.key,
     required File? image,
     required this.onTap,
+    this.imageURL,
   }) : _image = image;
 
   final File? _image;
+  final String? imageURL;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,9 @@ class ProfileImage extends StatelessWidget {
         child: CircleAvatar(
           backgroundColor: Colors.white,
           radius: 50,
-          backgroundImage: _image != null ? FileImage(_image) : null,
-          child: _image == null
+          backgroundImage:
+              _image != null ? FileImage(_image) : NetworkImage(imageURL ?? ''),
+          child: _image == null && imageURL == null
               ? const Icon(
                   Icons.person,
                   size: 50,

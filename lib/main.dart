@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planty/core/service/upload_profile_picture_service.dart';
 import 'package:planty/core/utils/fonts.dart';
 import 'package:planty/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
@@ -7,6 +8,8 @@ import 'package:planty/features/community/presentation/manager/community_cubit/c
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
 import 'package:planty/features/e-commerce/presentation/manager/product_cubit/product_cubit.dart';
 import 'package:planty/features/home/presentation/views/navigation_view.dart';
+import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:planty/features/profile/presentation/manager/upload_picture_cubit/upload_picture_cubit.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +40,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => SignUpCubit()),
         BlocProvider(create: (_) => SignInCubit()),
+        BlocProvider(create: (_) => ProfileCubit()),
+        BlocProvider(
+          create: (_) => UploadPictureCubit(UploadProfilePictureService()),
+        ),
         BlocProvider(create: (_) => CommunityCubit()),
         BlocProvider(create: (_) => ProductCubit()..fetchProducts()),
       ],
