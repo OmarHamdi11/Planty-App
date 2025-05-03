@@ -7,7 +7,7 @@ class PostViewHeader extends StatelessWidget {
     required this.authorName,
   });
 
-  final String authorImage;
+  final String? authorImage;
   final String authorName;
 
   @override
@@ -15,7 +15,11 @@ class PostViewHeader extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: AssetImage(authorImage),
+          backgroundImage: authorImage != null
+              ? NetworkImage(authorImage!)
+              : const AssetImage(
+                  "assets/images/user.png",
+                ),
           radius: 20,
         ),
         const SizedBox(width: 10),

@@ -1,11 +1,17 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/features/community/presentation/manager/post_cubit/post_cubit.dart';
+import 'package:planty/features/community/presentation/manager/post_cubit/post_state.dart';
 import 'package:planty/features/community/presentation/views/widgets/post_content_text_field.dart';
 import 'package:planty/features/community/presentation/views/widgets/post_custom_button.dart';
 import 'package:planty/features/community/presentation/views/widgets/post_view_header.dart';
 import 'package:planty/features/community/presentation/views/widgets/select_image_custom_button.dart';
+import 'package:planty/features/home/presentation/views/navigation_view.dart';
+import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_state.dart';
 
 class CreatePostView extends StatefulWidget {
   const CreatePostView({super.key});
@@ -18,8 +24,12 @@ class _CreatePostViewState extends State<CreatePostView> {
   File? _selectedImage;
   String? _postContent;
   final TextEditingController _postController = TextEditingController();
-  final String authorName = 'Omar Hamdi';
-  final String authorImage = 'assets/images/user.jpg';
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().fetchProfile(); // Load user profile
+  }
 
   Future<void> _pickImage(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
@@ -85,49 +95,99 @@ class _CreatePostViewState extends State<CreatePostView> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            PostViewHeader(
-              authorImage: authorImage,
-              authorName: authorName,
-            ),
-            const SizedBox(height: 16),
-            PostContentTextField(
-              controller: _postController,
-              onChanged: (value) {
-                setState(() {
-                  _postContent = value;
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            SelectImageCustomButton(
-              selectedImage: _selectedImage,
-              onTap: () {
-                _showImageSourceActionSheet(context);
-              },
-            ),
-            const SizedBox(height: 24),
-            PostCustomButton(
-              onPressed: () {
-                // Handle post submission
-                if (_selectedImage != null && _postContent != null) {
-                  // Here you would typically send the post data to your backend
-                  Navigator.pop(context); // Close the CreatePostView
-                  setState(
-                    () {
-                      _selectedImage = null; // Reset the image after posting
-                      _postContent = null; // Reset the content after posting
-                      _postController.clear();
-                    },
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, profileState) {
+          if (profileState is ProfileLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (profileState is ProfileError) {
+            return Center(child: Text('Error: ${profileState.message}'));
+          } else if (profileState is ProfileLoaded) {
+            final user = profileState.user;
+
+            return BlocConsumer<CreatePostCubit, CreatePostState>(
+              listener: (context, state) {
+                if (state is CreatePostSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.message)),
+                  );
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const NavigationView(myCurrentIndex: 1),
+                    ),
+                  );
+                } else if (state is CreatePostFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error: ${state.error}')),
                   );
                 }
               },
-            ),
-          ],
-        ),
+              builder: (context, state) {
+                return Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        children: [
+                          PostViewHeader(
+                            authorImage: user.profilePictureUrl ??
+                                'https://via.placeholder.com/150',
+                            authorName: user.userName,
+                          ),
+                          const SizedBox(height: 16),
+                          PostContentTextField(
+                            controller: _postController,
+                            onChanged: (value) {
+                              setState(() {
+                                _postContent = value;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          SelectImageCustomButton(
+                            selectedImage: _selectedImage,
+                            onTap: () {
+                              _showImageSourceActionSheet(context);
+                            },
+                          ),
+                          const SizedBox(height: 24),
+                          PostCustomButton(
+                            onPressed: () {
+                              if (_postContent != null &&
+                                  _postContent!.trim().isNotEmpty) {
+                                context.read<CreatePostCubit>().createPost(
+                                      content: _postContent!,
+                                      imageFile: _selectedImage, // can be null
+                                    );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text("Post content can't be empty"),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (state is CreatePostLoading)
+                      Container(
+                        color: Colors.black.withOpacity(0.3),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
       ),
     );
   }
