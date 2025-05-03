@@ -83,7 +83,14 @@ class _CreatePostViewState extends State<CreatePostView> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NavigationView(
+                  myCurrentIndex: 1,
+                ),
+              ),
+            );
           },
         ),
         centerTitle: true,
@@ -100,7 +107,7 @@ class _CreatePostViewState extends State<CreatePostView> {
           if (profileState is ProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (profileState is ProfileError) {
-            return Center(child: Text('Error: ${profileState.message}'));
+            return Center(child: Text(profileState.message));
           } else if (profileState is ProfileLoaded) {
             final user = profileState.user;
 

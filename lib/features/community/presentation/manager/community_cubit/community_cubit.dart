@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planty/core/errors/failure.dart';
 import 'package:planty/core/service/api_service.dart';
 import 'package:planty/features/community/data/models/post_model.dart';
 import 'community_state.dart';
@@ -10,6 +12,7 @@ class CommunityCubit extends Cubit<CommunityState> {
 
   Future<void> fetchPosts() async {
     emit(CommunityLoading());
+
     try {
       final api = ApiService();
       await api.setTokenFromPrefs();
@@ -22,8 +25,11 @@ class CommunityCubit extends Cubit<CommunityState> {
       } else {
         emit(CommunityFailure('Failed to fetch posts'));
       }
+    } on DioException catch (dioError) {
+      final failure = ServerFailure.fromDioExeption(dioError);
+      emit(CommunityFailure(failure.errorMessage));
     } catch (e) {
-      emit(CommunityFailure(e.toString()));
+      emit(CommunityFailure("Unexpected error occurred"));
     }
   }
 }

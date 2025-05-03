@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+import 'package:planty/core/errors/failure.dart';
 import 'package:planty/core/service/api_service.dart';
 
 part 'comment_state.dart';
@@ -14,9 +16,10 @@ class CommentCubit extends Cubit<CommentState> {
     emit(CommentLoading());
 
     try {
-      await ApiService().setTokenFromPrefs();
+      final api = ApiService();
+      await api.setTokenFromPrefs();
 
-      final response = await ApiService().post(
+      final response = await api.post(
         '/api/comment',
         data: {
           'postId': postId,
@@ -30,8 +33,11 @@ class CommentCubit extends Cubit<CommentState> {
         emit(
             CommentFailure(error: response.data['content'] ?? 'Unknown error'));
       }
+    } on DioException catch (dioError) {
+      final failure = ServerFailure.fromDioExeption(dioError);
+      emit(CommentFailure(error: failure.errorMessage));
     } catch (e) {
-      emit(CommentFailure(error: e.toString()));
+      emit(CommentFailure(error: "Unexpected error occurred"));
     }
   }
 }

@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planty/core/errors/failure.dart';
 import 'package:planty/core/service/api_service.dart';
 import 'package:planty/features/e-commerce/data/models/product_model.dart';
 
@@ -9,9 +11,11 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> fetchProducts() async {
     emit(ProductLoading());
+
     try {
-      await ApiService().setTokenFromPrefs();
-      final response = await ApiService().get("/api/admin/dashboard/plants");
+      final apiService = ApiService();
+      await apiService.setTokenFromPrefs();
+      final response = await apiService.get("/api/admin/dashboard/plants");
 
       if (response.statusCode == 200) {
         final List<ProductModel> products = (response.data as List)
@@ -21,8 +25,11 @@ class ProductCubit extends Cubit<ProductState> {
       } else {
         emit(ProductError("Failed to load products."));
       }
+    } on DioException catch (dioError) {
+      final failure = ServerFailure.fromDioExeption(dioError);
+      emit(ProductError(failure.errorMessage));
     } catch (e) {
-      emit(ProductError("Error: ${e.toString()}"));
+      emit(ProductError("Unexpected error occurred"));
     }
   }
 }

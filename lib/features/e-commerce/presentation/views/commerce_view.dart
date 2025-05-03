@@ -95,7 +95,7 @@ class _CommerceViewState extends State<CommerceView> {
                       ? CustomProductGrid(filteredProducts: filteredProducts)
                       : const Center(child: Text('No products found.'));
                 } else if (state is ProductError) {
-                  return Center(child: Text('Error: ${state.message}'));
+                  return Center(child: Text(state.message));
                 } else {
                   return const SizedBox.shrink();
                 }
