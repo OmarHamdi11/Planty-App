@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/widgets/error_view.dart';
 import 'package:planty/features/auth/presentation/views/signin_view.dart';
 import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_state.dart';
@@ -68,95 +69,101 @@ class _ProfileViewState extends State<ProfileView> {
             children: [
               const SizedBox(height: 13),
               const ProfileHeader(),
-              SingleChildScrollView(
-                child: BlocBuilder<ProfileCubit, ProfileState>(
-                  builder: (context, state) {
-                    if (state is ProfileLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is ProfileLoaded) {
-                      final user = state.user;
-                      nameController.text = user.userName;
-                      emailController.text = user.email;
-                      imageURL = user.profilePictureUrl ?? imageURL;
-
-                      return Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          ProfileImage(
-                            image: _image,
-                            imageURL: imageURL,
-                            onTap: () async {
-                              final pickedFile = await _picker.pickImage(
-                                  source: ImageSource.gallery);
-                              if (pickedFile != null) {
-                                setState(() => _image = File(pickedFile.path));
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 12),
-                          EditableField(
-                            label: "Name",
-                            controller: nameController,
-                            obscureText: _obscurePassword,
-                          ),
-                          EditableField(
-                            label: "Email",
-                            controller: emailController,
-                            obscureText: _obscurePassword,
-                          ),
-                          EditableField(
-                            label: "Password",
-                            controller: passwordController,
-                            obscureText: _obscurePassword,
-                            onToggle: () {
-                              setState(
-                                () {
-                                  _obscurePassword = !_obscurePassword;
-                                },
-                              );
-                            },
-                            isPassword: true,
-                          ),
-                          const SizedBox(height: 20),
-                          const SizedBox(height: 100),
-                          ProfileCustomButtons(
-                            save: () {
-                              if (_image != null) {
-                                context
-                                    .read<UploadPictureCubit>()
-                                    .uploadProfileImage(_image!);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text("No image selected.")),
-                                );
-                              }
-                            },
-                            signOut: () async {
-                              final prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.remove('token');
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  if (state is ProfileLoading) {
+                    return const Expanded(
+                        child: Center(child: CircularProgressIndicator()));
+                  } else if (state is ProfileLoaded) {
+                    final user = state.user;
+                    nameController.text = user.userName;
+                    emailController.text = user.email;
+                    imageURL = user.profilePictureUrl ?? imageURL;
+                    return SingleChildScrollView(
+                        child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        ProfileImage(
+                          image: _image,
+                          imageURL: imageURL,
+                          onTap: () async {
+                            final pickedFile = await _picker.pickImage(
+                                source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                              setState(() => _image = File(pickedFile.path));
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 12),
+                        EditableField(
+                          label: "Name",
+                          controller: nameController,
+                          obscureText: _obscurePassword,
+                        ),
+                        EditableField(
+                          label: "Email",
+                          controller: emailController,
+                          obscureText: _obscurePassword,
+                        ),
+                        EditableField(
+                          label: "Password",
+                          controller: passwordController,
+                          obscureText: _obscurePassword,
+                          onToggle: () {
+                            setState(
+                              () {
+                                _obscurePassword = !_obscurePassword;
+                              },
+                            );
+                          },
+                          isPassword: true,
+                        ),
+                        const SizedBox(height: 20),
+                        const SizedBox(height: 100),
+                        ProfileCustomButtons(
+                          save: () {
+                            if (_image != null) {
+                              context
+                                  .read<UploadPictureCubit>()
+                                  .uploadProfileImage(_image!);
+                            } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text("Signed out successfully!")),
+                                    content: Text("No image selected.")),
                               );
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignInView(),
-                                ),
-                              ); // or your login route
-                            },
-                          ),
-                        ],
-                      );
-                    } else if (state is ProfileError) {
-                      return Center(child: Text(state.message));
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                ),
+                            }
+                          },
+                          signOut: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.remove('token');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Signed out successfully!")),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignInView(),
+                              ),
+                            ); // or your login route
+                          },
+                        ),
+                      ],
+                    ));
+                  } else if (state is ProfileError) {
+                    return Expanded(
+                      child: ErrorView(
+                        errorMessage: state.message,
+                        onRetry: () {
+                          context.read<ProfileCubit>().fetchProfile();
+                        },
+                      ),
+                    );
+                    //return Expanded(child: Center(child: Text(state.message)));
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
               ),
             ],
           ),

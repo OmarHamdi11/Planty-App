@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/widgets/error_view.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
 import 'package:planty/features/e-commerce/presentation/manager/product_cubit/product_cubit.dart';
 import 'package:planty/features/e-commerce/presentation/manager/product_cubit/product_state.dart';
@@ -80,7 +81,9 @@ class _CommerceViewState extends State<CommerceView> {
             BlocBuilder<ProductCubit, ProductState>(
               builder: (context, state) {
                 if (state is ProductLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
                 } else if (state is ProductLoaded) {
                   final filteredProducts = state.products.where((product) {
                     final matchesCategory = selectedCategory == "All" ||
@@ -93,9 +96,18 @@ class _CommerceViewState extends State<CommerceView> {
 
                   return filteredProducts.isNotEmpty
                       ? CustomProductGrid(filteredProducts: filteredProducts)
-                      : const Center(child: Text('No products found.'));
+                      : const Expanded(
+                          child: Center(child: Text('No products found.')),
+                        );
                 } else if (state is ProductError) {
-                  return Center(child: Text(state.message));
+                  return Expanded(
+                    child: ErrorView(
+                      errorMessage: state.message,
+                      onRetry: () {
+                        context.read<ProductCubit>().fetchProducts();
+                      },
+                    ),
+                  );
                 } else {
                   return const SizedBox.shrink();
                 }

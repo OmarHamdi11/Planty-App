@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/widgets/error_view.dart';
 import 'package:planty/features/community/presentation/manager/post_cubit/post_cubit.dart';
 import 'package:planty/features/community/presentation/manager/post_cubit/post_state.dart';
 import 'package:planty/features/community/presentation/views/widgets/post_content_text_field.dart';
@@ -107,7 +108,12 @@ class _CreatePostViewState extends State<CreatePostView> {
           if (profileState is ProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (profileState is ProfileError) {
-            return Center(child: Text(profileState.message));
+            return ErrorView(
+              errorMessage: profileState.message,
+              onRetry: () {
+                context.read<ProfileCubit>().fetchProfile();
+              },
+            );
           } else if (profileState is ProfileLoaded) {
             final user = profileState.user;
 
