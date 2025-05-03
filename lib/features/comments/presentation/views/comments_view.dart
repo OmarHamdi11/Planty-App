@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planty/core/utils/colors.dart';
 import 'package:planty/core/widgets/error_view.dart';
+import 'package:planty/core/widgets/show_alert_dialog.dart';
 import 'package:planty/features/comments/presentation/manager/comment_cubit/comment_cubit.dart';
+import 'package:planty/features/comments/presentation/manager/delete_cubit/delete_comment_cubit.dart';
+import 'package:planty/features/comments/presentation/manager/delete_cubit/delete_comment_state.dart';
 import 'package:planty/features/comments/presentation/views/widgets/build_comment_input_field.dart';
 import 'package:planty/features/comments/presentation/views/widgets/post_comments_body.dart';
 import 'package:planty/features/community/presentation/manager/community_cubit/community_cubit.dart';
@@ -25,15 +28,11 @@ class _CommentsViewState extends State<CommentsView> {
   @override
   void initState() {
     super.initState();
-    _checkConnection();
     context.read<CommunityCubit>().fetchPosts(); // Fetch initial data
   }
 
-  Future<void> _checkConnection() async {
-    final result = await Connectivity().checkConnectivity();
-    setState(() {
-      hasInternet = result != ConnectivityResult.none;
-    });
+  void _deleteComment(int commentId) {
+    context.read<DeleteCommentCubit>().deleteComment(commentId);
   }
 
   @override
@@ -72,65 +71,90 @@ class _CommentsViewState extends State<CommentsView> {
             );
           }
         },
-        child: Column(
-          children: [
-            BlocBuilder<CommunityCubit, CommunityState>(
-              builder: (context, state) {
-                if (state is CommunityLoading) {
-                  return const Expanded(
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                } else if (state is CommunityFailure) {
-                  return Expanded(
-                    child: ErrorView(
-                      errorMessage: state.error,
-                      onRetry: () {
-                        context.read<CommunityCubit>().fetchPosts();
-                      },
-                    ),
-                  );
-                } else if (state is CommunitySuccess) {
-                  final post = state.posts.firstWhere(
-                    (post) => post.id == widget.postId,
-                  );
+        child: BlocListener<DeleteCommentCubit, DeleteCommentState>(
+          listener: (context, state) {
+            if (state is DeleteCommentSuccess) {
+              context.read<CommunityCubit>().fetchPosts();
+              showAlertDialog(
+                context: context,
+                title: 'Done',
+                message: state.message,
+              );
+            } else if (state is DeleteCommentFailure) {
+              showAlertDialog(
+                context: context,
+                title: 'Not allowed',
+                message: state.error,
+              );
+            } else if (state is DeleteCommentLoading) {
+              const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.primaryColor,
+                ),
+              );
+            }
+          },
+          child: Column(
+            children: [
+              BlocBuilder<CommunityCubit, CommunityState>(
+                builder: (context, state) {
+                  if (state is CommunityLoading) {
+                    return const Expanded(
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  } else if (state is CommunityFailure) {
+                    return Expanded(
+                      child: ErrorView(
+                        errorMessage: state.error,
+                        onRetry: () {
+                          context.read<CommunityCubit>().fetchPosts();
+                        },
+                      ),
+                    );
+                  } else if (state is CommunitySuccess) {
+                    final post = state.posts.firstWhere(
+                      (post) => post.id == widget.postId,
+                    );
 
-                  return post.comments.isNotEmpty
-                      ? PostCommentsBody(
-                          comments: post.comments,
-                        )
-                      : const Expanded(
-                          child: Center(
-                            child: Text(
-                              "No comments yet",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black54,
+                    return post.comments.isNotEmpty
+                        ? PostCommentsBody(
+                            comments: post.comments,
+                            deleteComment: _deleteComment,
+                          )
+                        : const Expanded(
+                            child: Center(
+                              child: Text(
+                                "No comments yet",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ),
-                          ),
+                          );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
+              BuildCommentInputField(
+                commentController: _commentController,
+                onPressed: () {
+                  final content = _commentController.text.trim();
+                  if (content.isNotEmpty) {
+                    context.read<CommentCubit>().addComment(
+                          postId: widget.postId,
+                          content: content,
                         );
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            ),
-            BuildCommentInputField(
-              commentController: _commentController,
-              onPressed: () {
-                final content = _commentController.text.trim();
-                if (content.isNotEmpty) {
-                  context.read<CommentCubit>().addComment(
-                        postId: widget.postId,
-                        content: content,
-                      );
-                  context.read<CommunityCubit>().fetchPosts();
-                  _commentController.clear();
-                  FocusScope.of(context).unfocus();
-                }
-              },
-            ),
-          ],
+                    context.read<CommunityCubit>().fetchPosts();
+                    _commentController.clear();
+                    FocusScope.of(context).unfocus();
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:planty/core/utils/fonts.dart';
 import 'package:planty/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:planty/features/comments/presentation/manager/comment_cubit/comment_cubit.dart';
+import 'package:planty/features/comments/presentation/manager/delete_cubit/delete_comment_cubit.dart';
 import 'package:planty/features/community/presentation/manager/community_cubit/community_cubit.dart';
 import 'package:planty/features/community/presentation/manager/post_cubit/post_cubit.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CommunityCubit()),
         BlocProvider(create: (_) => CreatePostCubit(UploadPostService())),
         BlocProvider(create: (_) => CommentCubit()),
+        BlocProvider(create: (_) => DeleteCommentCubit()),
         BlocProvider(create: (_) => ProductCubit()..fetchProducts()),
       ],
       child: MaterialApp(

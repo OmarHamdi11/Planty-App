@@ -6,11 +6,13 @@ class CommentViewBuildCommentWidget extends StatelessWidget {
     required this.profilePic,
     required this.name,
     required this.comment,
+    required this.onPressed,
   });
 
   final String? profilePic;
   final String name;
   final String comment;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,14 @@ class CommentViewBuildCommentWidget extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          const Spacer(flex: 1),
+          IconButton(
+            icon: const Icon(
+              Icons.disabled_by_default_rounded,
+              color: Colors.red,
+            ),
+            onPressed: onPressed,
           ),
         ],
       ),

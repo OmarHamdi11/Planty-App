@@ -34,11 +34,13 @@ class PostModel {
 }
 
 class CommentModel {
+  int id;
   final String content;
   final String authorName;
   final String? authorPicture;
 
   CommentModel({
+    required this.id,
     required this.content,
     required this.authorName,
     this.authorPicture,
@@ -46,6 +48,7 @@ class CommentModel {
 
   factory CommentModel.fromJson(Map<String, dynamic> json) {
     return CommentModel(
+      id: json['id'],
       content: json['content'],
       authorName: json['authorName'],
       authorPicture: json['authorPicture'] != null
