@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/widgets/dialog/upload_status.dart';
 import 'package:planty/core/widgets/error_view.dart';
 import 'package:planty/features/community/presentation/manager/post_cubit/post_cubit.dart';
 import 'package:planty/features/community/presentation/manager/post_cubit/post_state.dart';
@@ -120,19 +121,35 @@ class _CreatePostViewState extends State<CreatePostView> {
             return BlocConsumer<CreatePostCubit, CreatePostState>(
               listener: (context, state) {
                 if (state is CreatePostSuccess) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message)),
-                  );
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const NavigationView(myCurrentIndex: 1),
+                  showDialog(
+                    context: context,
+                    builder: (_) => ResultStatusDialog(
+                      status: UploadStatus.success, // or UploadStatus.error
+                      title: 'Done',
+                      message: 'Your post Uploaded successfully',
+                      buttonText: 'Ok',
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const NavigationView(myCurrentIndex: 1),
+                        ),
+                      ),
                     ),
                   );
                 } else if (state is CreatePostFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error: ${state.error}')),
+                  showDialog(
+                    context: context,
+                    builder: (_) => ResultStatusDialog(
+                      status: UploadStatus.error,
+                      title: 'Error',
+                      message: state.error,
+                      buttonText: 'Try again',
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // Retry logic here
+                      },
+                    ),
                   );
                 }
               },
@@ -144,8 +161,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                       child: Column(
                         children: [
                           PostViewHeader(
-                            authorImage: user.profilePictureUrl ??
-                                'https://via.placeholder.com/150',
+                            authorImage: user.profilePictureUrl,
                             authorName: user.userName,
                           ),
                           const SizedBox(height: 16),

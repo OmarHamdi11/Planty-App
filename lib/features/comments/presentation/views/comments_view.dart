@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/widgets/dialog/upload_status.dart';
 import 'package:planty/core/widgets/error_view.dart';
-import 'package:planty/core/widgets/show_alert_dialog.dart';
 import 'package:planty/features/comments/presentation/manager/comment_cubit/comment_cubit.dart';
 import 'package:planty/features/comments/presentation/manager/delete_cubit/delete_comment_cubit.dart';
 import 'package:planty/features/comments/presentation/manager/delete_cubit/delete_comment_state.dart';
@@ -75,16 +75,29 @@ class _CommentsViewState extends State<CommentsView> {
           listener: (context, state) {
             if (state is DeleteCommentSuccess) {
               context.read<CommunityCubit>().fetchPosts();
-              showAlertDialog(
+              showDialog(
                 context: context,
-                title: 'Done',
-                message: state.message,
+                builder: (_) => ResultStatusDialog(
+                  status: UploadStatus.success, // or UploadStatus.error
+                  title: 'Deletion complete',
+                  message: 'Your Comment deleted successfully',
+                  buttonText: 'Ok',
+                  onPressed: () => Navigator.pop(context),
+                ),
               );
             } else if (state is DeleteCommentFailure) {
-              showAlertDialog(
+              showDialog(
                 context: context,
-                title: 'Not allowed',
-                message: state.error,
+                builder: (_) => ResultStatusDialog(
+                  status: UploadStatus.error,
+                  title: 'Deletion error',
+                  message: state.error,
+                  buttonText: 'Try again',
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Retry logic here
+                  },
+                ),
               );
             } else if (state is DeleteCommentLoading) {
               const Center(
