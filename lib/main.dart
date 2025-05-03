@@ -4,6 +4,7 @@ import 'package:planty/core/service/upload_profile_picture_service.dart';
 import 'package:planty/core/utils/fonts.dart';
 import 'package:planty/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:planty/features/comments/presentation/manager/comment_cubit/comment_cubit.dart';
 import 'package:planty/features/community/presentation/manager/community_cubit/community_cubit.dart';
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
 import 'package:planty/features/e-commerce/presentation/manager/product_cubit/product_cubit.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           create: (_) => UploadPictureCubit(UploadProfilePictureService()),
         ),
         BlocProvider(create: (_) => CommunityCubit()),
+        BlocProvider(create: (_) => CommentCubit()),
         BlocProvider(create: (_) => ProductCubit()..fetchProducts()),
       ],
       child: MaterialApp(
