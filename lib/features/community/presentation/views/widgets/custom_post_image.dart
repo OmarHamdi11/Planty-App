@@ -15,7 +15,6 @@ class CustomPostImage extends StatelessWidget {
       child: imageUrl != null
           ? Image.network(
               imageUrl!,
-              height: 150,
               width: double.infinity,
               fit: BoxFit.cover,
             )

@@ -82,7 +82,10 @@ class _CommerceViewState extends State<CommerceView> {
               builder: (context, state) {
                 if (state is ProductLoading) {
                   return const Expanded(
-                    child: Center(child: CircularProgressIndicator()),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                          color: AppColors.primaryColor),
+                    ),
                   );
                 } else if (state is ProductLoaded) {
                   final filteredProducts = state.products.where((product) {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planty/core/utils/colors.dart';
+import 'package:planty/core/widgets/dialog/logout_confirmation_dialog.dart';
 import 'package:planty/core/widgets/error_view.dart';
 import 'package:planty/features/auth/presentation/views/signin_view.dart';
 import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
@@ -73,7 +74,10 @@ class _ProfileViewState extends State<ProfileView> {
                 builder: (context, state) {
                   if (state is ProfileLoading) {
                     return const Expanded(
-                        child: Center(child: CircularProgressIndicator()));
+                        child: Center(
+                      child: CircularProgressIndicator(
+                          color: AppColors.primaryColor),
+                    ));
                   } else if (state is ProfileLoaded) {
                     final user = state.user;
                     nameController.text = user.userName;
@@ -105,19 +109,6 @@ class _ProfileViewState extends State<ProfileView> {
                           controller: emailController,
                           obscureText: _obscurePassword,
                         ),
-                        EditableField(
-                          label: "Password",
-                          controller: passwordController,
-                          obscureText: _obscurePassword,
-                          onToggle: () {
-                            setState(
-                              () {
-                                _obscurePassword = !_obscurePassword;
-                              },
-                            );
-                          },
-                          isPassword: true,
-                        ),
                         const SizedBox(height: 20),
                         const SizedBox(height: 100),
                         ProfileCustomButtons(
@@ -134,18 +125,35 @@ class _ProfileViewState extends State<ProfileView> {
                             }
                           },
                           signOut: () async {
-                            final prefs = await SharedPreferences.getInstance();
-                            await prefs.remove('token');
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("Signed out successfully!")),
-                            );
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignInView(),
+                            showDialog(
+                              context: context,
+                              builder: (context) => LogoutConfirmationDialog(
+                                onConfirm: () async {
+                                  Navigator.of(context)
+                                      .pop(); // Dismiss the dialog first
+
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.remove('token');
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text("Signed out successfully!")),
+                                  );
+
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SignInView(),
+                                    ),
+                                  );
+                                },
+                                onCancel: () {
+                                  Navigator.of(context).pop();
+                                },
                               ),
-                            ); // or your login route
+                            );
                           },
                         ),
                       ],
