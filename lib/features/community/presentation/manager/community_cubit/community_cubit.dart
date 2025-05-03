@@ -32,4 +32,28 @@ class CommunityCubit extends Cubit<CommunityState> {
       emit(CommunityFailure("Unexpected error occurred"));
     }
   }
+
+  Future<void> deletePost(int postId) async {
+    emit(CommunityLoading());
+    try {
+      final api = ApiService();
+      await api.setTokenFromPrefs();
+
+      final response =
+          await api.delete('/api/Post', queryParameters: {'Id': postId});
+
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        posts.removeWhere((post) => post.id == postId);
+        emit(CommunitySuccess(List.from(posts)));
+      } else {
+        emit(CommunityFailure(
+            response.data['content'] ?? 'Failed to delete post'));
+      }
+    } on DioException catch (dioError) {
+      final failure = ServerFailure.fromDioExeption(dioError);
+      emit(CommunityFailure(failure.errorMessage));
+    } catch (e) {
+      emit(CommunityFailure("Unexpected error occurred"));
+    }
+  }
 }

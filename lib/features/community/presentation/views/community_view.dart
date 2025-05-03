@@ -60,7 +60,35 @@ class CommunityView extends StatelessWidget {
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 8),
                                     child: CustomBuildPost(
-                                        post: state.posts[index]),
+                                      post: state.posts[index],
+                                      deletePost: () async {
+                                        final confirm = await showDialog<bool>(
+                                          context: context,
+                                          builder: (ctx) => AlertDialog(
+                                            title: const Text('Delete Post'),
+                                            content: const Text(
+                                                'Are you sure you want to delete this post?'),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(ctx, false),
+                                                  child: const Text('Cancel')),
+                                              TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(ctx, true),
+                                                  child: const Text('Delete')),
+                                            ],
+                                          ),
+                                        );
+
+                                        if (confirm == true) {
+                                          context
+                                              .read<CommunityCubit>()
+                                              .deletePost(
+                                                  state.posts[index].id);
+                                        }
+                                      },
+                                    ),
                                   );
                                 },
                               )

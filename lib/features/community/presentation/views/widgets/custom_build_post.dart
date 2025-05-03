@@ -10,9 +10,11 @@ class CustomBuildPost extends StatelessWidget {
   const CustomBuildPost({
     super.key,
     required this.post,
+    required this.deletePost,
   });
 
   final PostModel post;
+  final void Function()? deletePost;
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +59,22 @@ class CustomBuildPost extends StatelessWidget {
             const SizedBox(height: 20),
             CustomPostImage(imageUrl: post.postImage),
             const SizedBox(height: 8),
-            CustomCommentNavigation(
-              comments: post.comments.length,
-              post: post,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomCommentNavigation(
+                  comments: post.comments.length,
+                  post: post,
+                ),
+                IconButton(
+                  onPressed: deletePost,
+                  icon: const Icon(
+                    Icons.delete,
+                    size: 24,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

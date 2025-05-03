@@ -37,8 +37,10 @@ class ApiService {
   }
 
   // DELETE
-  Future<Response> delete(String path, {dynamic data}) async {
-    return await _dio.delete(path, data: data);
+  Future<Response> delete(String path,
+      {dynamic data, required Map<String, int> queryParameters}) async {
+    return await _dio.delete(path,
+        data: data, queryParameters: queryParameters);
   }
 
   // Set Authorization Token

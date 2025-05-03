@@ -29,7 +29,7 @@ class CustomCommentNavigation extends StatelessWidget {
           },
           child: const Icon(
             Icons.comment,
-            size: 20,
+            size: 24,
             color: Colors.grey,
           ),
         ),
