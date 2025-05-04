@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planty/core/utils/colors.dart';
-import 'package:planty/core/utils/internet_checker.dart';
 import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:planty/features/auth/presentation/views/functions/email_validator.dart';
 import 'package:planty/features/auth/presentation/views/functions/password_validator.dart';
@@ -144,43 +143,22 @@ class SignUpBody extends StatelessWidget {
                       CustomAuthButton(
                         title: "Sign Up",
                         onPressed: () async {
-                          bool isConnected =
-                              await InternetChecker.checkConnection();
-
-                          if (formKey.currentState!.validate() && isConnected) {
+                          if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
 
                             final username =
-                                "${_firstNameController.text.trim()}${_lastNameController.text.trim()}"; // Full name
+                                "${_firstNameController.text.trim()}${_lastNameController.text.trim()}";
                             final email = _emailController.text.trim();
                             final password = _passwordController.text.trim();
                             final confirmPassword =
                                 _reEnterPassController.text.trim();
 
-                            print("Username: $username");
-                            print("Email: $email");
-                            print("Password: $password");
-                            print("Confirm Password: $confirmPassword");
-
-                            // ignore: use_build_context_synchronously
                             BlocProvider.of<SignUpCubit>(context).signUp(
                               username: username,
                               email: email,
                               password: password,
                               confirmPassword: confirmPassword,
                             );
-                          } else if (!formKey.currentState!.validate() &&
-                              isConnected) {
-                            return;
-                          } else if (formKey.currentState!.validate() &&
-                              !isConnected) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('No internet connection'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                            return;
                           }
                         },
                       ),

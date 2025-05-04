@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planty/core/widgets/dialog/upload_status.dart';
 import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:planty/features/auth/presentation/views/signin_view.dart';
 import 'package:planty/features/auth/presentation/views/widgets/sign_up_body.dart';
@@ -23,26 +24,38 @@ class SignUpView extends StatelessWidget {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => const Center(
+            builder: (_) => const Center(
               child: CircularProgressIndicator(),
             ),
           );
         } else if (state is SignUpSuccess) {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.green,
+          Navigator.pop(context); // Remove loading dialog
+          showDialog(
+            context: context,
+            builder: (_) => ResultStatusDialog(
+              status: UploadStatus.success,
+              title: 'Signed up successfully',
+              message: state.message,
+              buttonText: 'Ok',
+              onPressed: () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => SignInView()),
+              ),
             ),
           );
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => SignInView()),
-          );
         } else if (state is SignUpFailure) {
-          Navigator.pop(context); // Remove loading
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+          Navigator.pop(context); // Remove loading dialog
+          showDialog(
+            context: context,
+            builder: (_) => ResultStatusDialog(
+              status: UploadStatus.error,
+              title: 'Error',
+              message: state.error,
+              buttonText: 'Try again',
+              onPressed: () {
+                Navigator.pop(context); // Close error dialog
+              },
+            ),
           );
         }
       },

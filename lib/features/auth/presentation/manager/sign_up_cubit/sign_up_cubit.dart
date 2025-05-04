@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+import 'package:planty/core/errors/failure.dart';
 import 'package:planty/core/service/api_service.dart';
 
 part 'sign_up_state.dart';
@@ -26,23 +28,21 @@ class SignUpCubit extends Cubit<SignUpState> {
           "confirmPassword": confirmPassword,
         },
       );
+
       if (response.data["success"] == false) {
-        emit(
-          SignUpFailure(
-              error: response.data["content"][0] ?? "Registration failed!"),
-        );
-        return;
-      } else if (response.data["success"] == true) {
-        emit(
-          SignUpSuccess(
-              message: response.data["content"] ?? "Registration failed!"),
-        );
-        return;
+        emit(SignUpFailure(
+          error: response.data["content"][0] ?? "Registration failed!",
+        ));
+      } else {
+        emit(SignUpSuccess(
+          message: response.data["content"] ?? "Registration succeeded!",
+        ));
       }
-    } on Exception catch (e) {
-      emit(
-        SignUpFailure(error: e.toString()),
-      );
+    } on DioException catch (dioError) {
+      final failure = ServerFailure.fromDioExeption(dioError);
+      emit(SignUpFailure(error: failure.errorMessage));
+    } catch (e) {
+      emit(SignUpFailure(error: "Unexpected error occurred"));
     }
   }
 }
