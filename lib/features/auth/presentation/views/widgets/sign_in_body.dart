@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:planty/core/utils/colors.dart';
-import 'package:planty/core/utils/internet_checker.dart';
 import 'package:planty/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:planty/features/auth/presentation/views/functions/email_validator.dart';
 import 'package:planty/features/auth/presentation/views/functions/password_validator.dart';
@@ -96,31 +95,14 @@ class SignInBody extends StatelessWidget {
                       CustomAuthButton(
                         title: "Sign In",
                         onPressed: () async {
-                          bool isConnected =
-                              await InternetChecker.checkConnection();
-
-                          if (formKey.currentState!.validate() && isConnected) {
+                          if (formKey.currentState!.validate()) {
                             String email = _emailController.text.trim();
                             String password = _passwordController.text.trim();
-                            // Form is valid, proceed with login
-                            print(
-                                "SignIn Data: Email: $email, Password: $password");
+
                             _cubit.signIn(
                               email: email,
                               password: password,
                             );
-                          } else if (!formKey.currentState!.validate() &&
-                              isConnected) {
-                            return;
-                          } else if (formKey.currentState!.validate() &&
-                              !isConnected) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('No internet connection'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                            return;
                           }
                         },
                       ),

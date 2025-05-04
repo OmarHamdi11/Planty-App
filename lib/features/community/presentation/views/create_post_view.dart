@@ -107,7 +107,10 @@ class _CreatePostViewState extends State<CreatePostView> {
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, profileState) {
           if (profileState is ProfileLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+                child: CircularProgressIndicator(
+              color: AppColors.primaryColor,
+            ));
           } else if (profileState is ProfileError) {
             return ErrorView(
               errorMessage: profileState.message,

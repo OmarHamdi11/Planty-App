@@ -14,60 +14,62 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              //const SizedBox(height: 20),
-              const CustomAppBar(),
-              const SizedBox(height: 20),
-              CustomHomeButton(
-                icon: Icons.camera_alt_outlined,
-                title: "Identify",
-                subTitle: "plant",
-                imagePath: "assets/images/Diagnose.png",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const IdentifyView(),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 30),
-              CustomHomeButton(
-                icon: Icons.headset_mic_outlined,
-                title: "Diagnose",
-                subTitle: "plant",
-                imagePath: "assets/images/Diagnose.png",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DiagnoseView(),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 30),
-              CustomHomeButton(
-                icon: Icons.shopping_cart_outlined,
-                title: "Buy",
-                subTitle: "plant",
-                imagePath: "assets/images/buyPlant.png",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NavigationView(
-                        myCurrentIndex: 2,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                //const SizedBox(height: 20),
+                const CustomAppBar(),
+                const SizedBox(height: 20),
+                CustomHomeButton(
+                  icon: Icons.camera_alt_outlined,
+                  title: "Identify",
+                  subTitle: "plant",
+                  imagePath: "assets/images/Diagnose.png",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const IdentifyView(),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 30),
+                CustomHomeButton(
+                  icon: Icons.headset_mic_outlined,
+                  title: "Diagnose",
+                  subTitle: "plant",
+                  imagePath: "assets/images/Diagnose.png",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DiagnoseView(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 30),
+                CustomHomeButton(
+                  icon: Icons.shopping_cart_outlined,
+                  title: "Buy",
+                  subTitle: "plant",
+                  imagePath: "assets/images/buyPlant.png",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NavigationView(
+                          myCurrentIndex: 2,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

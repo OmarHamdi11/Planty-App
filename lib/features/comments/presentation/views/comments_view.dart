@@ -113,7 +113,10 @@ class _CommentsViewState extends State<CommentsView> {
                 builder: (context, state) {
                   if (state is CommunityLoading) {
                     return const Expanded(
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      )),
                     );
                   } else if (state is CommunityFailure) {
                     return Expanded(

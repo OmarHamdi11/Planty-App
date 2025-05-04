@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planty/core/utils/colors.dart';
 import 'package:planty/core/widgets/dialog/upload_status.dart';
 import 'package:planty/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:planty/features/auth/presentation/views/signin_view.dart';
@@ -25,7 +26,9 @@ class SignUpView extends StatelessWidget {
             context: context,
             barrierDismissible: false,
             builder: (_) => const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: AppColors.primaryColor,
+              ),
             ),
           );
         } else if (state is SignUpSuccess) {
