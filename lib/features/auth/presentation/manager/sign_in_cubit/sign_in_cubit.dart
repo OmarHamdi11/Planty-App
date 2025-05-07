@@ -24,16 +24,25 @@ class SignInCubit extends Cubit<SignInState> {
         },
       );
 
-      final token = response.data['content'];
+      final data = response.data;
 
-      // Save token locally
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', token);
+      final bool success = data['success'] ?? false;
+      final content = data['content'];
 
-      // Set token to be used in ApiService
-      ApiService().setToken(token);
+      if (success) {
+        final token = content;
 
-      emit(SignInSuccess());
+        // Save token locally
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        // Set token in ApiService for future requests
+        ApiService().setToken(token);
+
+        emit(SignInSuccess());
+      } else {
+        emit(SignInFailure(content.toString()));
+      }
     } on DioException catch (dioError) {
       final failure = ServerFailure.fromDioExeption(dioError);
       emit(SignInFailure(failure.errorMessage));
