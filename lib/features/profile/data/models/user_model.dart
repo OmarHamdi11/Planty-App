@@ -18,7 +18,9 @@ class UserModel {
       profilePictureUrl: json['profilePictureUrl'] != null
           ? "http://planty.runasp.net${json['profilePictureUrl']}"
           : null,
-      posts: List<Post>.from(json['posts'].map((post) => Post.fromJson(post))),
+      posts: List<Post>.from(
+        json['posts'].map((post) => Post.fromJson(post)),
+      ),
     );
   }
 }
@@ -26,7 +28,7 @@ class UserModel {
 class Post {
   final String content;
   final String? postPicture;
-  final List<dynamic> comments;
+  final List<Comment> comments;
 
   Post({
     required this.content,
@@ -40,7 +42,31 @@ class Post {
       postPicture: json['postPicture'] != null
           ? "http://planty.runasp.net${json['postPicture']}"
           : null,
-      comments: json['comments'] ?? [],
+      comments: List<Comment>.from(
+        json['comments'].map((comment) => Comment.fromJson(comment)),
+      ),
+    );
+  }
+}
+
+class Comment {
+  final String content;
+  final String authorName;
+  final String? profilePictureUrl;
+
+  Comment({
+    required this.content,
+    required this.authorName,
+    this.profilePictureUrl,
+  });
+
+  factory Comment.fromJson(Map<String, dynamic> json) {
+    return Comment(
+      content: json['content'],
+      authorName: json['authorName'],
+      profilePictureUrl: json['profilePictureUrl'] != null
+          ? "http://planty.runasp.net${json['profilePictureUrl']}"
+          : null,
     );
   }
 }

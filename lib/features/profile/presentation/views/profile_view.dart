@@ -12,6 +12,7 @@ import 'package:planty/features/profile/presentation/manager/profile_cubit/profi
 import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_state.dart';
 import 'package:planty/features/profile/presentation/manager/upload_picture_cubit/upload_picture_cubit.dart';
 import 'package:planty/features/profile/presentation/manager/upload_picture_cubit/upload_picture_state.dart';
+import 'package:planty/features/profile/presentation/views/profile_posts_view.dart';
 import 'package:planty/features/profile/presentation/views/widgets/build_info_tile.dart';
 import 'package:planty/features/profile/presentation/views/widgets/build_utility_tile.dart';
 import 'package:planty/features/profile/presentation/views/widgets/profile_header.dart';
@@ -160,9 +161,18 @@ class _ProfileViewState extends State<ProfileView> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            const BuildUtilityTile(
+                            BuildUtilityTile(
                               icon: Icons.feed_sharp,
                               title: "Posts",
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProfilePostsView(posts: user.posts),
+                                  ),
+                                );
+                              },
                             ),
                             const BuildUtilityTile(
                               icon: Icons.help_outline,
