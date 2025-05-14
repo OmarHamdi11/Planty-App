@@ -60,7 +60,7 @@ class CommentViewBuildCommentWidget extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(flex: 1),
+          const SizedBox(width: 5),
           IconButton(
             icon: const Icon(
               Icons.disabled_by_default_rounded,
