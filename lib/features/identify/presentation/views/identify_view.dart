@@ -26,17 +26,17 @@ class _IdentifyViewState extends State<IdentifyView> {
   String? modelOutput;
   final ImagePicker _picker = ImagePicker();
 
-  late IdentifyCubit _identifyCubit; // ✅ Safe reference to IdentifyCubit
+  late IdentifyCubit _identifyCubit;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _identifyCubit = context.read<IdentifyCubit>(); // ✅ Safe context usage
+    _identifyCubit = context.read<IdentifyCubit>();
   }
 
   @override
   void dispose() {
-    _identifyCubit.reset(); // ✅ No more context.read() here
+    _identifyCubit.reset();
     super.dispose();
   }
 
