@@ -31,7 +31,7 @@ class CustomModelButton extends StatelessWidget {
         child: Text(
           title,
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 16,
             color: Colors.white,
             fontFamily: AppFonts.avenir,
             fontWeight: FontWeight.bold,

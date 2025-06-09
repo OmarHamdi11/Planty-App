@@ -7,7 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/core/utils/fonts.dart';
 import 'package:planty/features/identify/presentation/manager/identify_cubit/identify_cubit.dart';
+import 'package:planty/features/identify/presentation/views/widgets/custom_error_widget.dart';
 import 'package:planty/features/identify/presentation/views/widgets/custom_image_preview.dart';
+import 'package:planty/features/identify/presentation/views/widgets/custom_init_widget.dart';
 import 'package:planty/features/identify/presentation/views/widgets/custom_pick_button.dart';
 import 'package:planty/features/identify/presentation/views/widgets/identify_custom_app_bar.dart';
 import 'package:planty/features/identify/presentation/views/widgets/identify_custom_divider.dart';
@@ -134,7 +136,7 @@ class _IdentifyViewState extends State<IdentifyView> {
                 children: [
                   CustomModelButton(
                     color: AppColors.primaryColor,
-                    title: "Identify",
+                    title: "Identify Type",
                     onPressed: () {
                       if (_image != null) {
                         final file = File(_image!.path);
@@ -145,7 +147,7 @@ class _IdentifyViewState extends State<IdentifyView> {
                   const SizedBox(width: 10),
                   CustomModelButton(
                     color: Colors.redAccent,
-                    title: "Clear",
+                    title: "Clear Image",
                     onPressed: () {
                       setState(() {
                         _image = null;
@@ -182,49 +184,9 @@ class _IdentifyViewState extends State<IdentifyView> {
                       text: state.result.predictedClass,
                     );
                   } else if (state is IdentifyFailure) {
-                    return Container(
-                      width: double.infinity,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.all(20),
-                      child: const Center(
-                        child: Text(
-                          "Error: Please try again.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.redAccent,
-                            fontFamily: AppFonts.avenir,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    );
+                    return const CustomErrorWidget();
                   }
-                  return Container(
-                    width: double.infinity,
-                    height: 130,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: const EdgeInsets.all(20),
-                    child: const Center(
-                      child: Text(
-                        "Waiting...",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: AppColors.primaryColor,
-                          fontFamily: AppFonts.avenir,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ); // Default: nothing to show
+                  return const CustomInitWidget(); // Default: nothing to show
                 },
               ),
             ],
