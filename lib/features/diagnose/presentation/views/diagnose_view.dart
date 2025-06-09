@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'dart:io';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/core/utils/fonts.dart';
 import 'package:planty/features/identify/presentation/views/widgets/custom_image_preview.dart';
@@ -9,6 +10,9 @@ import 'package:planty/features/identify/presentation/views/widgets/identify_cus
 import 'package:planty/features/identify/presentation/views/widgets/identify_custom_divider.dart';
 import 'package:planty/features/identify/presentation/views/widgets/custom_model_button.dart';
 import 'package:planty/features/identify/presentation/views/widgets/model_result_custom_widget.dart';
+import 'package:planty/features/identify/presentation/manager/identify_cubit/identify_cubit.dart';
+import 'package:planty/features/identify/presentation/views/widgets/custom_error_widget.dart';
+import 'package:planty/features/identify/presentation/views/widgets/custom_init_widget.dart';
 
 class DiagnoseView extends StatefulWidget {
   const DiagnoseView({super.key});
@@ -21,6 +25,20 @@ class _DiagnoseViewState extends State<DiagnoseView> {
   XFile? _image;
   String? modelOutput;
   final ImagePicker _picker = ImagePicker();
+
+  late IdentifyCubit _identifyCubit;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _identifyCubit = context.read<IdentifyCubit>();
+  }
+
+  @override
+  void dispose() {
+    _identifyCubit.reset();
+    super.dispose();
+  }
 
   // Function to pick an image from the gallery
   Future<void> pickImageFromGallery() async {
@@ -52,7 +70,6 @@ class _DiagnoseViewState extends State<DiagnoseView> {
         child: Padding(
           padding:
               const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 16),
-          // Main Column for the Identify View
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -111,22 +128,64 @@ class _DiagnoseViewState extends State<DiagnoseView> {
               ),
               const SizedBox(height: 20),
 
-              // Identify Button
-              CustomModelButton(
-                color: AppColors.primaryColor,
-                title: "Identify",
-                onPressed: () {
-                  // Call the model identification function here
-                  // For now, we will just simulate a model output
-                  setState(() {
-                    modelOutput = "Model Output: Plant Species Identified";
-                  });
-                },
+              // Identify and Clear Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomModelButton(
+                    color: AppColors.primaryColor,
+                    title: "Identify Diagnosis",
+                    onPressed: () {
+                      if (_image != null) {
+                        final file = File(_image!.path);
+                        _identifyCubit.identify(file);
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                  CustomModelButton(
+                    color: Colors.redAccent,
+                    title: "Clear Image",
+                    onPressed: () {
+                      setState(() {
+                        _image = null;
+                      });
+                      _identifyCubit.reset();
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
-              // Model Result information
-              const ModelResultCustomWidget(
-                text: "",
+
+              // Model Result Display
+              BlocBuilder<IdentifyCubit, IdentifyState>(
+                builder: (context, state) {
+                  if (state is IdentifyLoading) {
+                    return Container(
+                      width: double.infinity,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    );
+                  } else if (state is IdentifySuccess) {
+                    return ModelResultCustomWidget(
+                      // text:
+                      //     "Class: ${state.result.predictedClass}\nConfidence: ${state.result.confidence}",
+                      text: state.result.predictedClass,
+                    );
+                  } else if (state is IdentifyFailure) {
+                    return const CustomErrorWidget();
+                  }
+                  return const CustomInitWidget(); // Default: nothing to show
+                },
               ),
             ],
           ),

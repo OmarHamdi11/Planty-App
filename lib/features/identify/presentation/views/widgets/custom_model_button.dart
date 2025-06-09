@@ -21,7 +21,7 @@ class CustomModelButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           padding: const EdgeInsets.symmetric(
-            horizontal: 40,
+            horizontal: 30,
             vertical: 15,
           ),
           shape: RoundedRectangleBorder(
