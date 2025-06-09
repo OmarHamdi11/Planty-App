@@ -20,10 +20,10 @@ class ModelResultCustomWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       padding: const EdgeInsets.all(20),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Model Result:",
             style: TextStyle(
               fontSize: 24,
@@ -32,11 +32,11 @@ class ModelResultCustomWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Center(
             child: Text(
-              "Model Output", //title variable will be here //modelOutput will be here
-              style: TextStyle(
+              text, //title variable will be here //modelOutput will be here
+              style: const TextStyle(
                 fontSize: 16,
                 color: AppColors.primaryColor,
                 fontFamily: AppFonts.avenir,

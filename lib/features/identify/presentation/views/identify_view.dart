@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:planty/core/utils/colors.dart';
 import 'package:planty/core/utils/fonts.dart';
+import 'package:planty/features/identify/presentation/manager/identify_cubit/identify_cubit.dart';
 import 'package:planty/features/identify/presentation/views/widgets/custom_image_preview.dart';
 import 'package:planty/features/identify/presentation/views/widgets/custom_pick_button.dart';
 import 'package:planty/features/identify/presentation/views/widgets/identify_custom_app_bar.dart';
@@ -115,17 +119,66 @@ class _IdentifyViewState extends State<IdentifyView> {
               CustomModelButton(
                 title: "Identify",
                 onPressed: () {
-                  // Call the model identification function here
-                  // For now, we will just simulate a model output
-                  setState(() {
-                    modelOutput = "Model Output: Plant Species Identified";
-                  });
+                  if (_image != null) {
+                    final file = File(_image!.path);
+                    context.read<IdentifyCubit>().identify(file);
+                  }
+                  // // Call the model identification function here
+                  // // For now, we will just simulate a model output
+                  // setState(() {
+                  //   modelOutput = "Model Output: Plant Species Identified";
+                  // });
                 },
               ),
               const SizedBox(height: 20),
               // Model Result information
-              const ModelResultCustomWidget(
-                text: "",
+              BlocBuilder<IdentifyCubit, IdentifyState>(
+                builder: (context, state) {
+                  if (state is IdentifyLoading) {
+                    return Container(
+                      width: double.infinity,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    );
+                  } else if (state is IdentifySuccess) {
+                    return ModelResultCustomWidget(
+                      text:
+                          "Class: ${state.result.predictedClass}\nConfidence: ${state.result.confidence}",
+                    );
+                  } else if (state is IdentifyFailure) {
+                    return Container(
+                      width: double.infinity,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      child: const Center(
+                        child: Text(
+                          "Error: Please try again.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.redAccent,
+                            fontFamily: AppFonts.avenir,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
               ),
             ],
           ),

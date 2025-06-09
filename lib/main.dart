@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planty/core/service/upload_post_service.dart';
@@ -12,6 +13,8 @@ import 'package:planty/features/community/presentation/manager/post_cubit/post_c
 import 'package:planty/features/e-commerce/presentation/manager/cart_provider.dart';
 import 'package:planty/features/e-commerce/presentation/manager/product_cubit/product_cubit.dart';
 import 'package:planty/features/home/presentation/views/navigation_view.dart';
+import 'package:planty/features/identify/data/models/identify_service.dart';
+import 'package:planty/features/identify/presentation/manager/identify_cubit/identify_cubit.dart';
 import 'package:planty/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:planty/features/profile/presentation/manager/upload_picture_cubit/upload_picture_cubit.dart';
 import 'package:planty/features/splash/presentation/views/splash_screen.dart';
@@ -53,6 +56,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CommentCubit()),
         BlocProvider(create: (_) => DeleteCommentCubit()),
         BlocProvider(create: (_) => ProductCubit()..fetchProducts()),
+        BlocProvider(
+          create: (_) => IdentifyCubit(
+            IdentifyService(Dio()),
+          ),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
