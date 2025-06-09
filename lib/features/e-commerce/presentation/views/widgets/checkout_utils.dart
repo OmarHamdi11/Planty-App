@@ -36,6 +36,7 @@ Future<void> confirmOrderDialog(
   double subtotal,
   int shipping,
   double total,
+  String phoneNumber,
 ) {
   return showDialog(
     context: context,
@@ -47,6 +48,7 @@ Future<void> confirmOrderDialog(
         children: [
           Text("Delivery Address: $address"),
           Text("Payment Method: $paymentMethod"),
+          Text("Phone Number: $phoneNumber"),
           const SizedBox(height: 8),
           Text("Subtotal: \$${subtotal.toStringAsFixed(2)}"),
           Text("Shipping: \$${shipping.toStringAsFixed(2)}"),

@@ -25,10 +25,11 @@ class _CommerceViewState extends State<CommerceView> {
 
   final List<String> categories = [
     "All",
-    "Popular",
+    "popular",
     "Recommended",
-    "Indoor",
-    "Outdoor"
+    "Zina",
+    "Flowers",
+    "Fruits",
   ];
 
   @override

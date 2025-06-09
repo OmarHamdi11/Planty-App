@@ -23,13 +23,23 @@ class CheckoutView extends StatefulWidget {
 
 class _CheckoutViewState extends State<CheckoutView> {
   late String deliveryAddress;
+  late String phoneNumber;
   String paymentMethod = "Cash";
   final List<String> paymentMethods = ["Cash", "Credit Card", "PayPal"];
+
+  late TextEditingController phoneController;
 
   @override
   void initState() {
     super.initState();
     deliveryAddress = widget.shippingLocation;
+    phoneController = TextEditingController(); // initialize controller
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose(); // dispose the controller
+    super.dispose();
   }
 
   @override
@@ -86,6 +96,32 @@ class _CheckoutViewState extends State<CheckoutView> {
             ),
             const SizedBox(height: 20),
             const Text(
+              "Phone Number",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                hintText: "Enter your phone number",
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(
+                    color: Colors.green,
+                  ), // customize color if needed
+                ),
+              ),
+              maxLength: 15, // optional, restrict length
+            ),
+            const SizedBox(height: 20),
+            const Text(
               "Payment Method",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
@@ -119,6 +155,17 @@ class _CheckoutViewState extends State<CheckoutView> {
             const Spacer(),
             ConfirmOrderButton(
               onTap: () {
+                if (phoneController.text.isEmpty ||
+                    phoneController.text.length < 11) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter a valid phone number.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                  return;
+                }
+
                 confirmOrderDialog(
                   context,
                   deliveryAddress,
@@ -126,6 +173,8 @@ class _CheckoutViewState extends State<CheckoutView> {
                   widget.subtotal,
                   widget.shipping,
                   widget.total,
+                  phoneController
+                      .text, // optional: pass phone number to the dialog
                 );
               },
             ),
