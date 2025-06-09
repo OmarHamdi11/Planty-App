@@ -26,6 +26,20 @@ class _IdentifyViewState extends State<IdentifyView> {
   String? modelOutput;
   final ImagePicker _picker = ImagePicker();
 
+  late IdentifyCubit _identifyCubit; // ✅ Safe reference to IdentifyCubit
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _identifyCubit = context.read<IdentifyCubit>(); // ✅ Safe context usage
+  }
+
+  @override
+  void dispose() {
+    _identifyCubit.reset(); // ✅ No more context.read() here
+    super.dispose();
+  }
+
   // Function to pick an image from the gallery
   Future<void> pickImageFromGallery() async {
     final XFile? pickedImage =
@@ -56,7 +70,6 @@ class _IdentifyViewState extends State<IdentifyView> {
         child: Padding(
           padding:
               const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 16),
-          // Main Column for the Identify View
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -115,23 +128,36 @@ class _IdentifyViewState extends State<IdentifyView> {
               ),
               const SizedBox(height: 20),
 
-              // Identify Button
-              CustomModelButton(
-                title: "Identify",
-                onPressed: () {
-                  if (_image != null) {
-                    final file = File(_image!.path);
-                    context.read<IdentifyCubit>().identify(file);
-                  }
-                  // // Call the model identification function here
-                  // // For now, we will just simulate a model output
-                  // setState(() {
-                  //   modelOutput = "Model Output: Plant Species Identified";
-                  // });
-                },
+              // Identify and Clear Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomModelButton(
+                    color: AppColors.primaryColor,
+                    title: "Identify",
+                    onPressed: () {
+                      if (_image != null) {
+                        final file = File(_image!.path);
+                        _identifyCubit.identify(file);
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                  CustomModelButton(
+                    color: Colors.redAccent,
+                    title: "Clear",
+                    onPressed: () {
+                      setState(() {
+                        _image = null;
+                      });
+                      _identifyCubit.reset();
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
-              // Model Result information
+
+              // Model Result Display
               BlocBuilder<IdentifyCubit, IdentifyState>(
                 builder: (context, state) {
                   if (state is IdentifyLoading) {
@@ -151,8 +177,9 @@ class _IdentifyViewState extends State<IdentifyView> {
                     );
                   } else if (state is IdentifySuccess) {
                     return ModelResultCustomWidget(
-                      text:
-                          "Class: ${state.result.predictedClass}\nConfidence: ${state.result.confidence}",
+                      // text:
+                      //     "Class: ${state.result.predictedClass}\nConfidence: ${state.result.confidence}",
+                      text: state.result.predictedClass,
                     );
                   } else if (state is IdentifyFailure) {
                     return Container(
@@ -177,7 +204,27 @@ class _IdentifyViewState extends State<IdentifyView> {
                       ),
                     );
                   }
-                  return const SizedBox();
+                  return Container(
+                    width: double.infinity,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: const EdgeInsets.all(20),
+                    child: const Center(
+                      child: Text(
+                        "Waiting...",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: AppColors.primaryColor,
+                          fontFamily: AppFonts.avenir,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ); // Default: nothing to show
                 },
               ),
             ],

@@ -37,10 +37,10 @@ class ModelResultCustomWidget extends StatelessWidget {
             child: Text(
               text, //title variable will be here //modelOutput will be here
               style: const TextStyle(
-                fontSize: 16,
-                color: AppColors.primaryColor,
-                fontFamily: AppFonts.avenir,
-              ),
+                  fontSize: 16,
+                  color: AppColors.primaryColor,
+                  fontFamily: AppFonts.avenir,
+                  fontWeight: FontWeight.w500),
             ),
           ),
         ],

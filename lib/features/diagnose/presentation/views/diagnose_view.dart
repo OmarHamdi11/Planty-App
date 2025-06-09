@@ -113,6 +113,7 @@ class _DiagnoseViewState extends State<DiagnoseView> {
 
               // Identify Button
               CustomModelButton(
+                color: AppColors.primaryColor,
                 title: "Identify",
                 onPressed: () {
                   // Call the model identification function here

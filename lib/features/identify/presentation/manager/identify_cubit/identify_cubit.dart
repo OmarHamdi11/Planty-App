@@ -19,4 +19,8 @@ class IdentifyCubit extends Cubit<IdentifyState> {
       emit(IdentifyFailure(e.toString()));
     }
   }
+
+  void reset() {
+    emit(IdentifyInitial());
+  }
 }

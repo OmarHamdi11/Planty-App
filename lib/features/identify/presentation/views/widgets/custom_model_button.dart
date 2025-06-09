@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:planty/core/utils/colors.dart';
 import 'package:planty/core/utils/fonts.dart';
 
 class CustomModelButton extends StatelessWidget {
@@ -7,10 +6,12 @@ class CustomModelButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.title,
+    required this.color,
   });
 
   final String title;
   final void Function()? onPressed;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class CustomModelButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryColor,
+          backgroundColor: color,
           padding: const EdgeInsets.symmetric(
             horizontal: 40,
             vertical: 15,
